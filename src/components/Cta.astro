@@ -1,0 +1,12 @@
+---
+import { wa, business } from '../data/site.js';
+const { title = 'רוצים לדבר על הרעיון שלכם?', text = 'שלחו לדוד הודעה בוואטסאפ עם הרעיון, תמונת השראה או תמונה של קעקוע קיים, ונקבע פגישת ייעוץ.', waText } = Astro.props;
+---
+<aside class="cta-box" aria-labelledby="cta-title">
+  <h2 id="cta-title">{title}</h2>
+  <p>{text}</p>
+  <div class="btn-row">
+    <a class="btn btn-wa" href={wa(waText)}>שליחת הודעה בוואטסאפ</a>
+    <a class="btn btn-ghost" href={`tel:${business.phoneIntl}`}>התקשרו: {business.phoneDisplay}</a>
+  </div>
+</aside>

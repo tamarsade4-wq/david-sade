@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cards from '../../components/Cards.astro';
+import Cta from '../../components/Cta.astro';
+import { piercings } from '../../data/services.js';
+const ear = piercings.filter((p) => ['helix','tragus','conch','daith','industrial'].includes(p.slug));
+const face = piercings.filter((p) => ['nose','septum','lip','eyebrow'].includes(p.slug));
+const body = piercings.filter((p) => ['nipple'].includes(p.slug));
+const jewelry = piercings.filter((p) => p.slug.includes('jewelry'));
+---
+<Base title="פירסינג באר שבע והסביבה – סטודיו פרטי | דוד שדה"
+  description="פירסינג בסטודיו פרטי בעומר, צמוד לבאר שבע: הליקס, טראגוס, דיית, נזם, ספטום, שפה וגבה, עם תכשיטי טיטניום והסבר מלא על ההחלמה."
+  crumbs={[{ label: 'שירותי העסק', href: '/services' }, { label: 'פירסינג', href: '/piercing' }]}
+  waText="היי, אני רוצה לקבוע פירסינג">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">שירותי העסק</p>
+      <h1>פירסינג באזור באר שבע</h1>
+      <p class="lead">בסטודיו הפרטי של דוד שדה, בעומר הצמודה לבאר שבע, עושים פירסינג בעבודה נקייה ומסודרת, עם תכשיטי טיטניום והסבר מלא על ההחלמה.</p>
+    </header>
+    <section class="block" aria-labelledby="ear"><h2 id="ear">פירסינג באוזן</h2><Cards items={ear} base="/piercing" /></section>
+    <section class="block" aria-labelledby="face"><h2 id="face">פירסינג בפנים</h2><Cards items={face} base="/piercing" /></section>
+    <section class="block" aria-labelledby="body"><h2 id="body">פירסינג בגוף</h2><Cards items={body} base="/piercing" /></section>
+    <section class="block" aria-labelledby="jew"><h2 id="jew">תכשיטי פירסינג</h2><Cards items={jewelry} base="/piercing" /></section>
+    <section class="block wrap narrow prose" aria-labelledby="after">
+      <h2 id="after">טיפול אחרי פירסינג</h2>
+      <p>אחרי כל פירסינג מקבלים הוראות טיפול, ואפשר לשלוח שאלה בוואטסאפ בכל שלב של ההחלמה. עושים פירסינג בפעם הראשונה? קראו את <a href="/blog/first-piercing">המדריך לפירסינג ראשון</a> ואת המאמר על <a href="/blog/piercing-healing-time">זמן החלמת פירסינג</a>.</p>
+    </section>
+    <Cta title="רוצים לקבוע פירסינג?" text="שלחו הודעה בוואטסאפ, וספרו איזה פירסינג אתם רוצים." waText="היי, אני רוצה לקבוע פירסינג" />
+  </div>
+</Base>

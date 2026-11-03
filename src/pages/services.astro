@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Cards from '../components/Cards.astro';
+import Cta from '../components/Cta.astro';
+import { tattoos, piercings } from '../data/services.js';
+---
+<Base title="שירותי העסק – קעקועים ופירסינג | דוד שדה"
+  description="כל השירותים של סטודיו דוד שדה: קעקוע ריאליסטי בשחור-אפור, קאברים, שרוולים, קעקועים קטנים, וכל סוגי הפירסינג עם תכשיטי טיטניום."
+  crumbs={[{ label: 'שירותי העסק', href: '/services' }]}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>שירותי העסק</h1>
+      <p class="lead">בסטודיו של דוד שדה עושים קעקועים ופירסינג. כל שירות מתחיל בשיחה ובייעוץ, ונעשה בסטודיו פרטי ושקט בעומר, צמוד לבאר שבע.</p>
+      <nav aria-label="מעבר לפרק">
+        <div class="btn-row">
+          <a class="btn btn-ghost" href="#tattoos">קעקועים</a>
+          <a class="btn btn-ghost" href="#piercing">פירסינג</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="block" id="tattoos" aria-labelledby="tattoos-title">
+      <div class="section-head">
+        <h2 id="tattoos-title">קעקועים</h2>
+      </div>
+      <p>ההתמחות של דוד היא <a href="/tattoos/realism">ריאליזם בשחור-אפור</a> ו<a href="/tattoos/cover-up">קאברים לקעקועים ישנים</a>. לכל קעקוע מכינים <a href="/tattoos/consultation">סקיצה אישית</a> לפני שמתחילים.</p>
+      <Cards items={tattoos} base="/tattoos" />
+    </section>
+
+    <section class="block" id="piercing" aria-labelledby="piercing-title">
+      <div class="section-head">
+        <h2 id="piercing-title">פירסינג</h2>
+        <a href="/piercing">כל המידע על פירסינג ‹</a>
+      </div>
+      <p>פירסינג באוזן, באף, בשפה ובגבה, עם <a href="/piercing/titanium-jewelry">תכשיטי טיטניום</a> לפירסינג חדש.</p>
+      <Cards items={piercings} base="/piercing" />
+    </section>
+
+    <section class="block" aria-labelledby="more-title">
+      <h2 id="more-title">עוד בסטודיו</h2>
+      <ul class="grid" role="list" style="list-style:none;padding:0">
+        <li class="card"><h3><a href="/private-lessons">לימוד קעקועים פרטני</a></h3><p>אחד על אחד עם דוד, בקצב שלכם.</p></li>
+        <li class="card"><h3><a href="/sketch">סקיצה לקעקוע באתר</a></h3><p>תארו רעיון, קבלו סקיצה ראשונית ושלחו לדוד.</p></li>
+        <li class="card"><h3><a href="/studio">סטודיו פרטי לקעקועים</a></h3><p>שקט, אספרסו ומים קרים, בלי לחץ.</p></li>
+      </ul>
+    </section>
+    <Cta />
+  </div>
+</Base>

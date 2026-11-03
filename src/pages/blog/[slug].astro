@@ -1,0 +1,11 @@
+---
+import Page from '../../layouts/Page.astro';
+import posts from '../../data/posts.json';
+export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
+const { p } = Astro.props;
+const site = Astro.site.href.replace(/\/$/, '');
+const article = { '@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.description, inLanguage: 'he', author: { '@type': 'Person', name: 'דוד שדה' }, publisher: { '@id': site + '/#business' } };
+---
+<Page title={p.title} metaTitle={`${p.title} | דוד שדה`.length <= 60 ? `${p.title} | דוד שדה` : p.title}
+  description={p.description} crumbs={[{ label: 'מאמרים', href: '/blog' }, { label: p.title, href: `/blog/${p.slug}` }]}
+  eyebrow="מאמרים" html={p.body} schema={[article]} />

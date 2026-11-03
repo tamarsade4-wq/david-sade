@@ -1,0 +1,9 @@
+---
+import Page from '../layouts/Page.astro';
+import x from '../data/extra-pages.json';
+const p = x['__far'];
+---
+<Page title="מגיעים לקעקוע מרחוק?" metaTitle="סטודיו לקעקועים בדרום – מגיעים מרחוק | דוד שדה"
+  description="בשביל קעקוע מדהים שווה להדרים. ככה מתאמים קעקוע אצל דוד שדה כשמגיעים מרחוק: ייעוץ בוואטסאפ, סקיצה מראש והגעה פעם אחת."
+  crumbs={[{ label: 'מגיעים מרחוק', href: '/visit' }]}
+  eyebrow="בשביל קעקוע מדהים שווה להדרים" html={p.body} waText="היי דוד, אני מגיע/ה מרחוק ורוצה לתאם קעקוע" />

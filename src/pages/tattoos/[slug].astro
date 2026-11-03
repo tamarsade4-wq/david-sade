@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import { tattoos } from '../../data/services.js';
+
+export function getStaticPaths() {
+  return tattoos.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+const others = tattoos.filter((t) => t.slug !== s.slug);
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: s.title, serviceType: 'קעקוע', description: s.description,
+  provider: { '@id': Astro.site.href.replace(/\/$/, '') + '/#business' },
+  areaServed: ['עומר', 'באר שבע', 'ישראל'],
+};
+---
+<Base title={s.metaTitle} description={s.description} waText={s.waText}
+  crumbs={[{ label: 'שירותי העסק', href: '/services' }, { label: s.title, href: `/tattoos/${s.slug}` }]}
+  schema={[service]}>
+  <article class="wrap narrow">
+    <header class="page-head">
+      <p class="eyebrow">קעקועים</p>
+      <h1>{s.title}</h1>
+    </header>
+    <div class="prose" set:html={s.body} />
+    <Cta waText={s.waText} />
+    <nav class="related" aria-label="עוד שירותי קעקוע">
+      <h2>עוד שירותי קעקוע</h2>
+      <ul>{others.map((o) => <li><a href={`/tattoos/${o.slug}`}>{o.title}</a></li>)}</ul>
+    </nav>
+  </article>
+</Base>

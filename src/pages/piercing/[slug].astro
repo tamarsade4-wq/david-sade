@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import { piercings } from '../../data/services.js';
+
+export function getStaticPaths() {
+  return piercings.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+const others = piercings.filter((t) => t.slug !== s.slug);
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: s.title, serviceType: 'פירסינג', description: s.description,
+  provider: { '@id': Astro.site.href.replace(/\/$/, '') + '/#business' },
+  areaServed: ['עומר', 'באר שבע', 'ישראל'],
+};
+---
+<Base title={s.metaTitle} description={s.description} waText={s.waText}
+  crumbs={[{ label: 'שירותי העסק', href: '/services' }, { label: 'פירסינג', href: '/piercing' }, { label: s.title, href: `/piercing/${s.slug}` }]}
+  schema={[service]}>
+  <article class="wrap narrow">
+    <header class="page-head">
+      <p class="eyebrow">פירסינג</p>
+      <h1>{s.title}</h1>
+    </header>
+    <div class="prose" set:html={s.body} />
+    <p class="note">שאלות לפני פירסינג? קראו את <a href="/blog/first-piercing">המדריך לפירסינג ראשון</a>.</p>
+    <Cta title="רוצים לקבוע פירסינג?" text="שלחו הודעה בוואטסאפ, וספרו איזה פירסינג אתם רוצים. אפשר לצרף תמונה של האזור." waText={s.waText} />
+    <nav class="related" aria-label="עוד סוגי פירסינג">
+      <h2>עוד סוגי פירסינג</h2>
+      <ul>{others.map((o) => <li><a href={`/piercing/${o.slug}`}>{o.title}</a></li>)}</ul>
+    </nav>
+  </article>
+</Base>

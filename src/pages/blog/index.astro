@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import posts from '../../data/posts.json';
+---
+<Base title="מאמרים על קעקועים ופירסינג | דוד שדה"
+  description="מאמרים על קעקועים ופירסינג: כמה עולה קעקוע, האם זה כואב, איך מטפלים בקעקוע חדש, סגנונות קעקועים ופירסינג ראשון."
+  crumbs={[{ label: 'מאמרים', href: '/blog' }]}>
+  <div class="wrap">
+    <header class="page-head"><h1>מאמרים על קעקועים ופירסינג</h1>
+      <p class="lead">כל מה שכדאי לדעת לפני קעקוע או פירסינג, ואחריו.</p></header>
+    <ul class="grid" role="list" style="list-style:none;padding:0;margin:0">
+      {posts.map((p) => (<li class="card"><h2 style="font-size:1.2rem;margin:0"><a href={`/blog/${p.slug}`} style="color:var(--text);text-decoration:none">{p.title}</a></h2><p>{p.description}</p></li>))}
+    </ul>
+  </div>
+</Base>

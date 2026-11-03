@@ -1,0 +1,21 @@
+---
+import Page from '../layouts/Page.astro';
+import { business, wa } from '../data/site.js';
+---
+<Page title="צרו קשר" metaTitle="צרו קשר – סטודיו דוד שדה בעומר | דוד שדה"
+  description="צרו קשר עם סטודיו דוד שדה בוואטסאפ, בטלפון או במייל. סטודיו פרטי לקעקועים ופירסינג בעומר, צמוד לבאר שבע."
+  crumbs={[{ label: 'צרו קשר', href: '/contact' }]} cta={false}>
+  <p>הדרך הכי מהירה היא הודעה בוואטסאפ, עם הרעיון שלכם, תמונת השראה, הגודל והמקום בגוף.</p>
+  <div class="btn-row" style="margin:1.5rem 0">
+    <a class="btn btn-wa" href={wa('היי דוד, הגעתי מהאתר ואשמח לפרטים')}>שליחת הודעה בוואטסאפ</a>
+    <a class="btn btn-ghost" href={`tel:${business.phoneIntl}`}>התקשרו: {business.phoneDisplay}</a>
+  </div>
+  <h2>פרטי התקשרות</h2>
+  <ul>
+    <li>טלפון ווואטסאפ: <a href={`tel:${business.phoneIntl}`}>{business.phoneDisplay}</a></li>
+    <li>מייל: <a href={`mailto:${business.email}`}>{business.email}</a></li>
+    <li>מיקום: {business.street ? `${business.street}, ` : ''}{business.city}, צמוד לבאר שבע</li>
+    {business.hours && <li>שעות: {business.hours}</li>}
+  </ul>
+  <p>מגיעים מרחוק? <a href="/visit">ככה מתאמים הגעה</a>.</p>
+</Page>

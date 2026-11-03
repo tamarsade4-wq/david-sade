@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import Cards from '../components/Cards.astro';
+import Cta from '../components/Cta.astro';
+import { tattoos, piercings } from '../data/services.js';
+import posts from '../data/posts.json';
+import { wa, business } from '../data/site.js';
+const featured = tattoos.filter((t) => t.featured);
+const topPiercing = piercings.filter((p) => ['helix', 'nose', 'septum', 'daith'].includes(p.slug));
+const latest = posts.slice(0, 3);
+---
+<Base title="סטודיו לקעקועים ופירסינג ליד באר שבע | דוד שדה"
+  description="סטודיו פרטי לקעקועים ופירסינג בעומר, צמוד לבאר שבע. דוד שדה מתמחה בריאליזם שחור-אפור ובקאברים, עם ייעוץ וסקיצה אישית לכל קעקוע.">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{business.slogan}</p>
+      <h1>סטודיו לקעקועים ופירסינג – דוד שדה</h1>
+      <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. דוד מקעקע כבר כעשור, ומתמחה בריאליזם בשחור-אפור ובקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
+      <div class="btn-row">
+        <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
+        <a class="btn btn-ghost" href="/services">לכל השירותים</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>קעקועים</h2>
+        <a href="/services#tattoos">כל שירותי הקעקוע ‹</a>
+      </div>
+      <Cards items={featured} base="/tattoos" />
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>פירסינג</h2>
+        <a href="/piercing">כל סוגי הפירסינג ‹</a>
+      </div>
+      <Cards items={topPiercing} base="/piercing" />
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>איך זה עובד</h2>
+      <ol class="steps">
+        <li><strong>שולחים רעיון</strong>בוואטסאפ, עם תמונת השראה, גודל ומקום בגוף.</li>
+        <li><strong>ייעוץ וסקיצה</strong>דוד מעצב סקיצה אישית, ומשנים עד שזה מרגיש נכון.</li>
+        <li><strong>הקעקוע</strong>בסטודיו פרטי ושקט, עם אספרסו ומים קרים.</li>
+        <li><strong>אחרי</strong>הוראות טיפול, ומענה לשאלות בזמן ההחלמה.</li>
+      </ol>
+      <p><a href="/tattoos/consultation">עוד על הייעוץ והסקיצה ‹</a></p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head"><h2>סטודיו פרטי, לא פס ייצור</h2></div>
+      <p class="lead">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="/studio">על הסטודיו</a>
+        <a class="btn btn-ghost" href="/visit">מגיעים מרחוק?</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>רוצים לנסות סקיצה?</h2>
+      </div>
+      <p>תארו את הקעקוע שאתם רוצים, קבלו סקיצה ראשונית, ושלחו אותה לדוד לקבלת הצעת מחיר.</p>
+      <a class="btn btn-gold" href="/sketch">לבניית סקיצה</a>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>מאמרים</h2>
+        <a href="/blog">לכל המאמרים ‹</a>
+      </div>
+      <ul class="grid" role="list" style="list-style:none;padding:0;margin:0">
+        {latest.map((p) => (
+          <li class="card"><h3><a href={`/blog/${p.slug}`}>{p.title}</a></h3><p>{p.description}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap"><Cta /></div>
+</Base>

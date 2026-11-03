@@ -1,0 +1,9 @@
+---
+import Page from '../layouts/Page.astro';
+import x from '../data/extra-pages.json';
+const p = x['__lessons'];
+---
+<Page title="לימוד קעקועים פרטני" metaTitle="לימוד קעקועים פרטני אחד על אחד | דוד שדה"
+  description="לימוד קעקועים פרטני אחד על אחד עם דוד שדה, שמקעקע כבר כעשור. בקצב שלכם, בסטודיו פרטי בעומר, ליד באר שבע."
+  crumbs={[{ label: 'לימוד קעקועים פרטני', href: '/private-lessons' }]}
+  eyebrow="לימוד" html={p.body} waText="היי דוד, אני מתעניין/ת בלימוד קעקועים פרטני" />
