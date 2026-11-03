@@ -1,0 +1,201 @@
+media:
+  input: public/images
+  output: /images
+  rename: safe
+
+content:
+  - name: tattoos
+    label: קעקועים
+    type: collection
+    path: src/content/tattoos
+    format: json
+    filename: "{fields.slug}.json"
+    view:
+      fields: [title, order, featured]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: כותרת העמוד (H1) – מילת המפתח של העמוד
+        type: string
+        required: true
+      - name: slug
+        label: כתובת העמוד באנגלית (למשל realism). לא לשנות בעמוד קיים
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: רק אותיות באנגלית קטנות, ספרות ומקף
+      - name: metaTitle
+        label: כותרת בגוגל (Title) – עד 60 תווים
+        type: string
+        required: true
+        options:
+          maxlength: 60
+      - name: description
+        label: תיאור בגוגל (מטא) – עד 160 תווים, שיגרום להקליק
+        type: text
+        required: true
+        options:
+          maxlength: 160
+      - name: card
+        label: משפט קצר לכרטיס ברשימת השירותים
+        type: string
+      - name: featured
+        label: להציג בדף הבית
+        type: boolean
+        default: false
+      - name: order
+        label: סדר הופעה (מספר קטן מופיע קודם)
+        type: number
+        default: 100
+      - name: waText
+        label: ההודעה שנפתחת בוואטסאפ מהעמוד
+        type: string
+      - name: body
+        label: תוכן העמוד
+        type: rich-text
+        options:
+          format: html
+          media: false
+
+  - name: piercings
+    label: פירסינג
+    type: collection
+    path: src/content/piercings
+    format: json
+    filename: "{fields.slug}.json"
+    view:
+      fields: [title, group, order]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: כותרת העמוד (H1) – מילת המפתח של העמוד
+        type: string
+        required: true
+      - name: slug
+        label: כתובת העמוד באנגלית (למשל helix). לא לשנות בעמוד קיים
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: רק אותיות באנגלית קטנות, ספרות ומקף
+      - name: group
+        label: קבוצה בעמוד הפירסינג
+        type: select
+        required: true
+        options:
+          values:
+            - name: ear
+              label: אוזן
+            - name: face
+              label: פנים
+            - name: body
+              label: גוף
+            - name: jewelry
+              label: תכשיטים
+      - name: metaTitle
+        label: כותרת בגוגל (Title) – עד 60 תווים
+        type: string
+        required: true
+        options:
+          maxlength: 60
+      - name: description
+        label: תיאור בגוגל (מטא) – עד 160 תווים
+        type: text
+        required: true
+        options:
+          maxlength: 160
+      - name: card
+        label: משפט קצר לכרטיס ברשימה
+        type: string
+      - name: order
+        label: סדר הופעה (מספר קטן מופיע קודם)
+        type: number
+        default: 100
+      - name: waText
+        label: ההודעה שנפתחת בוואטסאפ מהעמוד
+        type: string
+      - name: body
+        label: תוכן העמוד
+        type: rich-text
+        options:
+          format: html
+          media: false
+
+  - name: blog
+    label: מאמרים
+    type: collection
+    path: src/content/blog
+    format: json
+    filename: "{fields.slug}.json"
+    view:
+      fields: [title, order]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: כותרת המאמר (H1) – מילת המפתח
+        type: string
+        required: true
+      - name: slug
+        label: כתובת המאמר באנגלית (למשל tattoo-price). לא לשנות במאמר קיים
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: רק אותיות באנגלית קטנות, ספרות ומקף
+      - name: description
+        label: תיאור בגוגל (מטא) – עד 160 תווים
+        type: text
+        required: true
+        options:
+          maxlength: 160
+      - name: order
+        label: סדר הופעה (מספר קטן מופיע קודם)
+        type: number
+        default: 100
+      - name: draft
+        label: טיוטה (לא יופיע באתר)
+        type: boolean
+        default: false
+      - name: body
+        label: תוכן המאמר
+        type: rich-text
+        options:
+          format: html
+          media: false
+
+  - name: business
+    label: פרטי העסק
+    type: file
+    path: src/content/settings/business.json
+    format: json
+    fields:
+      - { name: name, label: שם העסק באתר, type: string, required: true }
+      - { name: shortName, label: שם קצר, type: string }
+      - { name: legalName, label: שם העוסק הרשמי (לתקנון ולפרטיות), type: string }
+      - { name: taxId, label: מספר עוסק, type: string }
+      - { name: street, label: רחוב ומספר, type: string }
+      - { name: city, label: עיר, type: string }
+      - { name: region, label: מחוז, type: string }
+      - { name: phoneDisplay, label: טלפון לתצוגה, type: string }
+      - { name: phoneIntl, label: טלפון בפורמט בינלאומי (+972...), type: string }
+      - { name: whatsapp, label: מספר וואטסאפ בלי + (972...), type: string }
+      - { name: email, label: אימייל, type: string }
+      - { name: instagram, label: קישור לאינסטגרם, type: string }
+      - { name: facebook, label: קישור לפייסבוק, type: string }
+      - { name: hours, label: שעות פעילות, type: string }
+      - { name: slogan, label: סלוגן, type: string }
+      - { name: sketchAppUrl, label: קישור לאפליקציית הסקיצות, type: string }
+      - { name: accessibilityContact, label: שם רכז/ת הנגישות, type: string }
