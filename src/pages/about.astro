@@ -1,9 +1,30 @@
 ---
 import Page from '../layouts/Page.astro';
+import { business } from '../data/site.js';
+const site = Astro.site.href.replace(/\/$/, '');
+const person = {
+  '@context': 'https://schema.org', '@type': 'Person', '@id': site + '/about#david',
+  name: 'דוד שדה', jobTitle: 'מקעקע', worksFor: { '@id': site + '/#business' },
+  knowsAbout: ['קעקוע ריאליסטי בשחור-אפור', 'קאבר לקעקוע', 'פורטרט', 'פירסינג'],
+  sameAs: [business.instagram, business.facebook].filter(Boolean),
+};
 ---
 <Page title="דוד שדה – מקעקע ריאליזם וקאברים" metaTitle="אודות דוד שדה | מקעקע ריאליזם שחור-אפור"
   description="דוד שדה מקעקע כבר כעשור ומתמחה בריאליזם שחור-אפור ובקאברים. הסיפור שלו, איך הוא עובד, והסטודיו הפרטי בעומר."
-  crumbs={[{ label: 'אודות', href: '/about' }]}>
+  crumbs={[{ label: 'אודות', href: '/about' }]} schema={[person]}>
+  <section class="facts" aria-labelledby="facts-h">
+    <h2 id="facts-h">הסטודיו בקצרה</h2>
+    <dl>
+      <div><dt>מיקום</dt><dd>עומר, צמוד לבאר שבע{business.street ? ` (${business.street})` : ''}</dd></div>
+      <div><dt>ניסיון</dt><dd>דוד מקעקע כבר כעשור</dd></div>
+      <div><dt>התמחות</dt><dd>ריאליזם בשחור-אפור, פורטרטים, הנצחה וקאברים לקעקועים ישנים</dd></div>
+      <div><dt>עוד בסטודיו</dt><dd>פירסינג עם תכשיטי טיטניום ולימוד קעקועים פרטני, אחד על אחד</dd></div>
+      <div><dt>סוג הסטודיו</dt><dd>סטודיו פרטי ושקט, בלי קהל מסביב</dd></div>
+      {business.hours && <div><dt>שעות</dt><dd>{business.hours}</dd></div>}
+      <div><dt>יצירת קשר</dt><dd>וואטסאפ או טלפון: {business.phoneDisplay}</dd></div>
+      <div><dt>כתבו עלינו</dt><dd><a href="/press">באר שבע נט, 2021 ו-2023</a></dd></div>
+    </dl>
+  </section>
   <p>שמי דוד שדה, והקעקוע הראשון שעשיתי שינה לי את החיים. היום אני מקעקע כבר כעשור, בסטודיו פרטי בעומר, צמוד לבאר שבע, ומתמחה ב<a href="/tattoos/realism">ריאליזם בשחור-אפור</a> וב<a href="/tattoos/cover-up">קאברים לקעקועים ישנים</a>.</p>
   <h2>איך הגעתי לקעקוע</h2>
   <p>לפני הקעקוע עבדתי 12 שנה במחלקת מחקר ופיתוח בטבע. סביב יום הולדת 40 הבנתי שאני רוצה לעשות את מה שאני אוהב, והתחלתי ללמוד לקעקע ממקעקע חבר. מאז אני ממשיך ללמוד, וגם היום אני לוקח שיעורי אמנות.</p>

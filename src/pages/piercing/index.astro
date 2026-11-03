@@ -3,10 +3,10 @@ import Base from '../../layouts/Base.astro';
 import Cards from '../../components/Cards.astro';
 import Cta from '../../components/Cta.astro';
 import { piercings } from '../../data/services.js';
-const ear = piercings.filter((p) => ['helix','tragus','conch','daith','industrial'].includes(p.slug));
-const face = piercings.filter((p) => ['nose','septum','lip','eyebrow'].includes(p.slug));
-const body = piercings.filter((p) => ['nipple'].includes(p.slug));
-const jewelry = piercings.filter((p) => p.slug.includes('jewelry'));
+const ear = piercings.filter((p) => p.group === 'ear');
+const face = piercings.filter((p) => p.group === 'face');
+const body = piercings.filter((p) => p.group === 'body');
+const jewelry = piercings.filter((p) => p.group === 'jewelry');
 ---
 <Base title="פירסינג באר שבע והסביבה – סטודיו פרטי | דוד שדה"
   description="פירסינג בסטודיו פרטי בעומר, צמוד לבאר שבע: הליקס, טראגוס, דיית, נזם, ספטום, שפה וגבה, עם תכשיטי טיטניום והסבר מלא על ההחלמה."

@@ -1,23 +1,7 @@
-// פרטי העסק. שדות עם null מחכים לתמר/דוד ולא יוצגו באתר עד שימולאו.
-export const business = {
-  name: 'דוד שדה – סטודיו לקעקועים ופירסינגים',
-  shortName: 'דוד שדה',
-  legalName: null, // שם העוסק הרשמי
-  taxId: null, // מספר עוסק
-  street: null, // כתובת מלאה
-  city: 'עומר',
-  region: 'מחוז הדרום',
-  phoneDisplay: '050-2606770',
-  phoneIntl: '+972502606770',
-  whatsapp: '972502606770',
-  email: 'david.sade38@gmail.com',
-  instagram: 'https://www.instagram.com/david_sade_ts',
-  facebook: 'https://www.facebook.com/share/1auqCd7ojA/',
-  hours: null, // שעות פתיחה אמיתיות
-  slogan: 'בשביל קעקוע מדהים שווה להדרים',
-  sketchAppUrl: 'https://ink-crazy-sketch-flow.base44.app',
-  accessibilityContact: null, // שם רכז/ת נגישות
-};
+// פרטי העסק נערכים ב-src/content/settings/business.json (דרך מערכת הניהול).
+// שדה ריק לא מוצג באתר.
+import data from '../content/settings/business.json';
+export const business = data;
 
 export const wa = (text) =>
   `https://wa.me/${business.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;

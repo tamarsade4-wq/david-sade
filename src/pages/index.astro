@@ -2,8 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Cards from '../components/Cards.astro';
 import Cta from '../components/Cta.astro';
-import { tattoos, piercings } from '../data/services.js';
-import posts from '../data/posts.json';
+import { tattoos, piercings, posts } from '../data/services.js';
 import { wa, business } from '../data/site.js';
 const featured = tattoos.filter((t) => t.featured);
 const topPiercing = piercings.filter((p) => ['helix', 'nose', 'septum', 'daith'].includes(p.slug));

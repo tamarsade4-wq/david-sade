@@ -1,6 +1,6 @@
 ---
 import Page from '../../layouts/Page.astro';
-import posts from '../../data/posts.json';
+import { posts } from '../../data/services.js';
 export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
 const { p } = Astro.props;
 const site = Astro.site.href.replace(/\/$/, '');
