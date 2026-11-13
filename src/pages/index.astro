@@ -16,7 +16,7 @@ const latest = posts.slice(0, 3);
     <div class="wrap hero-grid">
       <div class="hero-text">
         <p class="eyebrow">{business.slogan}</p>
-        <h1>סטודיו לקעקועים ופירסינג – דוד שדה</h1>
+        <h1>סטודיו לקעקועים ופירסינג – <span class="gold-mark">דוד שדה</span></h1>
         <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. דוד מקעקע כבר כעשור, ומתמחה בריאליזם בשחור-אפור ובקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
         <div class="btn-row">
           <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
@@ -24,10 +24,31 @@ const latest = posts.slice(0, 3);
         </div>
       </div>
       <div class="hero-photo">
-        <img src={`/images/${portrait.file}`} alt={portrait.alt} width={portrait.w} height={portrait.h} fetchpriority="high" decoding="async" />
+        <div class="frame">
+          <img src={`/images/${portrait.file}`} alt={portrait.alt} width={portrait.w} height={portrait.h} fetchpriority="high" decoding="async" />
+        </div>
+        <span class="hero-tag">עומר · צמוד לבאר שבע</span>
       </div>
     </div>
   </section>
+
+  <div class="wrap">
+    <ul class="facts-strip" role="list">
+      <li><b>כעשור</b><span>של קעקוע</span></li>
+      <li><b>סטודיו פרטי</b><span>שקט, בלי קהל מסביב</span></li>
+      <li><b>סקיצה אישית</b><span>לכל קעקוע</span></li>
+      <li><b>לימוד פרטני</b><span>אחד על אחד</span></li>
+    </ul>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>בשביל קעקוע מדהים שווה להדרים</span><span>הסיפור שלך. האמנות שלנו.</span>
+      <span>בשביל קעקוע מדהים שווה להדרים</span><span>הסיפור שלך. האמנות שלנו.</span>
+      <span>בשביל קעקוע מדהים שווה להדרים</span><span>הסיפור שלך. האמנות שלנו.</span>
+      <span>בשביל קעקוע מדהים שווה להדרים</span><span>הסיפור שלך. האמנות שלנו.</span>
+    </div>
+  </div>
 
   <section class="block">
     <div class="wrap">
@@ -35,7 +56,7 @@ const latest = posts.slice(0, 3);
         <h2>עבודות אחרונות</h2>
         <a href="/portfolio">לתיק העבודות המלא ‹</a>
       </div>
-      <Gallery items={works.slice(0, 6)} />
+      <Gallery items={works.slice(0, 8)} />
     </div>
   </section>
 
@@ -75,7 +96,7 @@ const latest = posts.slice(0, 3);
   <section class="block">
     <div class="wrap">
       <div class="section-head"><h2>סטודיו פרטי, לא פס ייצור</h2></div>
-      <p class="lead">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
+      <p class="statement">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
       <div class="btn-row">
         <a class="btn btn-ghost" href="/studio">על הסטודיו</a>
         <a class="btn btn-ghost" href="/visit">מגיעים מרחוק?</a>
