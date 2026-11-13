@@ -62,7 +62,8 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  {noindex && <meta name="robots" content="noindex" />}
+  {noindex ? <meta name="robots" content="noindex" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+  
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="he_IL" />
   <meta property="og:site_name" content={business.name} />
@@ -143,6 +144,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
           <ul>
             <li><a href="/about">אודות דוד שדה</a></li>
             <li><a href="/studio">סטודיו פרטי</a></li>
+            <li><a href="/tattoo-beer-sheva">מקעקע בבאר שבע</a></li>
             <li><a href="/press">כתבו עלינו</a></li>
             <li><a href="/blog">מאמרים</a></li>
             <li><a href="/visit">מגיעים מרחוק</a></li>

@@ -4,8 +4,9 @@ import { posts } from '../../data/services.js';
 export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
 const { p } = Astro.props;
 const site = Astro.site.href.replace(/\/$/, '');
-const article = { '@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.description, inLanguage: 'he', author: { '@type': 'Person', name: 'דוד שדה' }, publisher: { '@id': site + '/#business' } };
+const article = { '@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.description, inLanguage: 'he', mainEntityOfPage: `${site}/blog/${p.slug}`, image: `${site}/og.jpg`, author: { '@type': 'Person', name: 'דוד שדה' }, publisher: { '@id': site + '/#business' } };
 ---
 <Page title={p.title} metaTitle={`${p.title} | דוד שדה`.length <= 60 ? `${p.title} | דוד שדה` : p.title}
   description={p.description} crumbs={[{ label: 'מאמרים', href: '/blog' }, { label: p.title, href: `/blog/${p.slug}` }]}
-  eyebrow="מאמרים" html={p.body} schema={[article]} />
+  eyebrow="מאמרים" html={p.body} schema={[article]}
+  related={[1, 2, 3].map((k) => posts[(posts.findIndex((o) => o.slug === p.slug) + k) % posts.length]).map((o) => ({ href: `/blog/${o.slug}`, label: o.title }))} />

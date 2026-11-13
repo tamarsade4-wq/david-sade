@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 import PageBanner from '../../components/PageBanner.astro';
 import { tattoos } from '../../data/services.js';
 
@@ -31,5 +32,6 @@ const service = {
       <h2>עוד שירותי קעקוע</h2>
       <ul>{others.map((o) => <li><a href={`/tattoos/${o.slug}`}>{o.title}</a></li>)}</ul>
     </nav>
+    <RelatedLinks current={Astro.url.pathname} />
   </article>
 </Base>

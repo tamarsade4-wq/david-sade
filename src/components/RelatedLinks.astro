@@ -1,0 +1,16 @@
+---
+// קישורים פנימיים קבועים בסוף עמוד (עוזרים לגילוי עמודים ולניווט).
+const { extra = [], current = '' } = Astro.props;
+const base = [
+  { href: '/portfolio', label: 'תיק עבודות' },
+  { href: '/tattoo-beer-sheva', label: 'מקעקע בבאר שבע' },
+  { href: '/tattoos/consultation', label: 'ייעוץ וסקיצה' },
+  { href: '/services', label: 'כל השירותים' },
+  { href: '/blog', label: 'מאמרים' },
+];
+const links = [...extra, ...base].filter((l) => l.href !== current);
+---
+<nav class="related" aria-label="עוד באתר">
+  <h2>עוד באתר</h2>
+  <ul>{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+</nav>

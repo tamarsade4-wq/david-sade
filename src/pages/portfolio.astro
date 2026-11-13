@@ -2,11 +2,18 @@
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import Cta from '../components/Cta.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
 import { works } from '../data/portfolio.js';
+const site = Astro.site.href.replace(/\/$/, '');
+const collection = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'תיק עבודות קעקועים', url: site + '/portfolio', inLanguage: 'he',
+  about: { '@id': site + '/#business' },
+  hasPart: works.slice(0, 8).map((w) => ({ '@type': 'ImageObject', contentUrl: `${site}/images/work/${w.file}`, description: w.alt })),
+};
 ---
 <Base title="תיק עבודות קעקועים | דוד שדה"
-  description="עבודות קעקוע של דוד שדה: קו דק, גיאומטרי, פורטרטים וקאברים. סטודיו פרטי בעומר, צמוד לבאר שבע."
-  crumbs={[{ label: 'תיק עבודות', href: '/portfolio' }]}>
+  description="עבודות קעקוע של דוד שדה: קו דק, גיאומטרי ופורטרטים. סטודיו פרטי בעומר, צמוד לבאר שבע. לחצו להגדלה."
+  crumbs={[{ label: 'תיק עבודות', href: '/portfolio' }]} schema={[collection]}>
   <section class="wrap">
     <header class="page-head">
       <p class="eyebrow">עבודות של דוד</p>
@@ -14,6 +21,9 @@ import { works } from '../data/portfolio.js';
       <p class="lead">מבחר עבודות מהסטודיו. לחצו על תמונה כדי להגדיל. לעוד עבודות, בקרו באינסטגרם.</p>
     </header>
     <Gallery items={works} eager={4} />
+    <h2>סגנונות בתיק העבודות</h2>
+    <p>בתיק העבודות יש קעקועי <a href="/tattoos/small-fine-line">קו דק</a>, עבודות <a href="/tattoos/geometric">גיאומטריות</a>, <a href="/tattoos/animals">חיות</a> ופורטרטים. ל<a href="/tattoos/realism">ריאליזם בשחור-אפור</a> ול<a href="/tattoos/cover-up">קאברים</a> אפשר לבקש ייעוץ וסקיצה אישית.</p>
     <Cta title="יש לכם רעיון דומה?" text="שלחו לדוד את הרעיון בוואטסאפ ונקבע ייעוץ וסקיצה אישית." waText="היי דוד, ראיתי את תיק העבודות ואשמח לייעוץ" />
+    <RelatedLinks current="/portfolio" />
   </section>
 </Base>
