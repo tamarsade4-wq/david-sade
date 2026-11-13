@@ -110,4 +110,4 @@ npx astro preview --port 4321
 ## עבודה מקומית
 - הריפו משוכפל ב-C:/Users/User/Desktop/david-sade-site, Node 26 מותקן. `npm run dev` / `npm run build`. התיקייה research/ לא נדחפת (ב-.gitignore).
 - נבדק ב-13.11.2026: axe 0 הפרות ב-51 העמודים ברוחב 1280 ו-375, בלי גלילה אופקית, JSON-LD תקין, בלי קישורים שבורים.
-- לבדוק: קישור הפייסבוק (באתר share/1auqCd7ojA, במסמך המסרים share/1DxiuAsF1A).
+- פייסבוק: הקישור הנכון הוא share/1auqCd7ojA (אושר ע"י תמר 13.11.2026). המסמך של בית המסרים מכיל קישור אחר, לא נכון.
