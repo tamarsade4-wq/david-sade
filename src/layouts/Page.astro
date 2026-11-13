@@ -1,11 +1,17 @@
 ---
 import Base from './Base.astro';
 import Cta from '../components/Cta.astro';
+import PageBanner from '../components/PageBanner.astro';
 const { title, metaTitle, description, crumbs, eyebrow, html, cta = true, waText, schema, noindex } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const plain = ['/about', '/404', '/terms', '/privacy', '/accessibility', '/sketch'].includes(path);
+const useWork = path.startsWith('/blog') || path === '/tattoo-beer-sheva';
 ---
 <Base title={metaTitle} description={description} crumbs={crumbs} waText={waText} schema={schema} noindex={noindex}>
   <article class="wrap narrow">
-    <header class="page-head">
+    {!plain && <PageBanner kind={useWork ? 'work' : 'studio'} seed={path} />}
+    <header class={plain ? 'page-head' : 'page-head has-banner'}>
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
     </header>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
+import PageBanner from '../../components/PageBanner.astro';
 import { tattoos } from '../../data/services.js';
 
 export function getStaticPaths() {
@@ -19,7 +20,8 @@ const service = {
   crumbs={[{ label: 'שירותי העסק', href: '/services' }, { label: s.title, href: `/tattoos/${s.slug}` }]}
   schema={[service]}>
   <article class="wrap narrow">
-    <header class="page-head">
+    <PageBanner kind="work" seed={s.slug} />
+    <header class="page-head has-banner">
       <p class="eyebrow">קעקועים</p>
       <h1>{s.title}</h1>
     </header>

@@ -1,0 +1,22 @@
+---
+// תמונת פתיחה דקורטיבית (alt ריק): עבודה שמתאימה לנושא, או דוד בסטודיו.
+import { works, portrait } from '../data/portfolio.js';
+const { kind = 'studio', seed = '' } = Astro.props;
+// התאמה לפי תוכן התמונה (נבחר לפי מה שרואים בה בלבד)
+const byTopic = {
+  realism: 'work-13.webp',
+  animals: 'work-02.webp',
+  geometric: 'work-16.webp',
+  'small-fine-line': 'work-10.webp',
+  abstract: 'work-01.webp',
+  portrait: 'work-14.webp',
+  sleeve: 'work-17.webp',
+};
+const hash = [...seed].reduce((a, c) => a + c.charCodeAt(0), 0);
+const file = byTopic[seed] || works[hash % works.length].file;
+const src = kind === 'work' ? `/images/work/${file}` : `/images/${portrait.file}`;
+const pos = kind === 'work' ? '50% 40%' : '60% 35%';
+---
+<div class="page-banner" aria-hidden="true">
+  <img src={src} alt="" width="900" height="600" loading="eager" decoding="async" style={`object-position:${pos}`} />
+</div>
