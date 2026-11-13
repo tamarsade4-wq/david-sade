@@ -16,7 +16,7 @@ const latest = posts.slice(0, 3);
     <div class="wrap hero-grid">
       <div class="hero-text">
         <p class="eyebrow">{business.slogan}</p>
-        <h1>סטודיו לקעקועים ופירסינג – <span class="gold-mark">דוד שדה</span></h1>
+        <h1><span class="ln">סטודיו לקעקועים</span> <span class="ln">ופירסינג –</span> <span class="ln gold-mark">דוד שדה</span></h1>
         <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. דוד מקעקע כבר כעשור, ומתמחה בריאליזם בשחור-אפור ובקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
         <div class="btn-row">
           <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
@@ -30,6 +30,7 @@ const latest = posts.slice(0, 3);
         <span class="hero-tag">עומר · צמוד לבאר שבע</span>
       </div>
     </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
   </section>
 
   <div class="wrap">
@@ -52,31 +53,31 @@ const latest = posts.slice(0, 3);
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>עבודות אחרונות</h2>
         <a href="/portfolio">לתיק העבודות המלא ‹</a>
       </div>
-      <Gallery items={works.slice(0, 8)} />
+      <Gallery items={works.slice(0, 8)} rail eager={2} />
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>קעקועים</h2>
         <a href="/services#tattoos">כל שירותי הקעקוע ‹</a>
       </div>
-      <Cards items={featured} base="/tattoos" />
+      <Cards items={featured} base="/tattoos" rail />
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>פירסינג</h2>
         <a href="/piercing">כל סוגי הפירסינג ‹</a>
       </div>
-      <Cards items={topPiercing} base="/piercing" />
+      <Cards items={topPiercing} base="/piercing" rail />
     </div>
   </section>
 
@@ -84,10 +85,10 @@ const latest = posts.slice(0, 3);
     <div class="wrap">
       <h2>איך זה עובד</h2>
       <ol class="steps">
-        <li><strong>שולחים רעיון</strong>בוואטסאפ, עם תמונת השראה, גודל ומקום בגוף.</li>
-        <li><strong>ייעוץ וסקיצה</strong>דוד מעצב סקיצה אישית, ומשנים עד שזה מרגיש נכון.</li>
-        <li><strong>הקעקוע</strong>בסטודיו פרטי ושקט, עם אספרסו ומים קרים.</li>
-        <li><strong>אחרי</strong>הוראות טיפול, ומענה לשאלות בזמן ההחלמה.</li>
+        <li class="reveal"><strong>שולחים רעיון</strong>בוואטסאפ, עם תמונת השראה, גודל ומקום בגוף.</li>
+        <li class="reveal"><strong>ייעוץ וסקיצה</strong>דוד מעצב סקיצה אישית, ומשנים עד שזה מרגיש נכון.</li>
+        <li class="reveal"><strong>הקעקוע</strong>בסטודיו פרטי ושקט, עם אספרסו ומים קרים.</li>
+        <li class="reveal"><strong>אחרי</strong>הוראות טיפול, ומענה לשאלות בזמן ההחלמה.</li>
       </ol>
       <p><a href="/tattoos/consultation">עוד על הייעוץ והסקיצה ‹</a></p>
     </div>
@@ -95,8 +96,8 @@ const latest = posts.slice(0, 3);
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head"><h2>סטודיו פרטי, לא פס ייצור</h2></div>
-      <p class="statement">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
+      <div class="section-head reveal"><h2>סטודיו פרטי, לא פס ייצור</h2></div>
+      <p class="statement reveal">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
       <div class="btn-row">
         <a class="btn btn-ghost" href="/studio">על הסטודיו</a>
         <a class="btn btn-ghost" href="/visit">מגיעים מרחוק?</a>
@@ -106,7 +107,7 @@ const latest = posts.slice(0, 3);
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>רוצים לנסות סקיצה?</h2>
       </div>
       <p>תארו את הקעקוע שאתם רוצים, קבלו סקיצה ראשונית, ושלחו אותה לדוד לקבלת הצעת מחיר.</p>
@@ -116,7 +117,7 @@ const latest = posts.slice(0, 3);
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <h2>מאמרים</h2>
         <a href="/blog">לכל המאמרים ‹</a>
       </div>

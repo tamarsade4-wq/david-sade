@@ -1,10 +1,10 @@
 ---
-const { items, base, headingLevel = 3 } = Astro.props;
+const { items, base, headingLevel = 3, rail = false } = Astro.props;
 const H = `h${headingLevel}`;
 ---
-<ul class="grid" role="list" style="list-style:none;padding:0;margin:0">
+<ul class={rail ? 'grid rail' : 'grid'} role="list" style="list-style:none;padding:0;margin:0">
   {items.map((s) => (
-    <li class="card">
+    <li class="card reveal">
       <H><a href={`${base}/${s.slug}`}>{s.title}</a></H>
       <p>{s.card}</p>
       <span class="more" aria-hidden="true">לפרטים ‹</span>

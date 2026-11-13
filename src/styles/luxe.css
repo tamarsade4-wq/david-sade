@@ -127,3 +127,87 @@ section.block .section-head::after { content: ''; position: absolute; inset-inli
   .marquee span:nth-child(n+3) { display: none; }
   .btn:hover, .card:hover { transform: none; }
 }
+
+/* ===== פס התקדמות וכפתור וואטסאפ חי ===== */
+.progress { position: fixed; top: 0; inset-inline: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: right; z-index: 120; pointer-events: none; }
+.wa-float::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--wa); opacity: 0; animation: ring 2.8s ease-out infinite; pointer-events: none; }
+@keyframes ring { 0% { transform: scale(.85); opacity: .7; } 70%, 100% { transform: scale(1.35); opacity: 0; } }
+.hero h1 .ln { display: inline-block; }
+.hero h1 .ln { animation: lineUp .9s var(--ease) both; }
+.hero h1 .ln:nth-child(2) { animation-delay: .12s; }
+.hero h1 .ln:nth-child(3) { animation-delay: .24s; }
+@keyframes lineUp { from { opacity: 0; transform: translateY(.6em); } to { opacity: 1; transform: none; } }
+.scroll-cue { display: none; }
+
+/* ===== רצועות (rail) ===== */
+.rail { scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+
+/* ===== מובייל ===== */
+@media (max-width: 700px) {
+  /* גיבור מסך מלא, התמונה ברקע */
+  .hero { min-height: calc(100svh - 64px); padding: 0; display: flex; align-items: flex-end; border-bottom: 0; }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, #0b0b0b 6%, rgba(11,11,11,.82) 38%, rgba(11,11,11,.12) 78%, rgba(11,11,11,.35)); }
+  .hero-grid { display: block; position: static; width: 100%; padding-block: 0 4.2rem; }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-photo { position: absolute; inset: 0; z-index: 0; max-width: none; margin: 0; order: 0; }
+  .hero-photo::before { display: none; }
+  .hero-photo .frame { height: 100%; border-radius: 0; box-shadow: none; }
+  .hero-photo img { height: 100%; width: 100%; aspect-ratio: auto; object-fit: cover; object-position: 60% 35%; transform-origin: top center; transform: translateY(-16%) scale(1.2); animation: driftm 22s ease-in-out infinite alternate; }
+  @keyframes driftm { from { transform: translateY(-16%) scale(1.2); } to { transform: translateY(-16%) scale(1.3); } }
+  .hero-tag { top: 1rem; bottom: auto; inset-inline-start: auto; inset-inline-end: 1rem; background: rgba(11,11,11,.7); backdrop-filter: blur(4px); z-index: 3; }
+  .hero-text { padding-top: 0; }
+  .hero .eyebrow { font-size: .85rem; margin-bottom: .8rem; }
+  .hero h1 { font-size: clamp(2.2rem, 11vw, 3.1rem); line-height: 1.02; margin-bottom: .5em; text-shadow: 0 2px 24px rgba(0,0,0,.5); }
+  .hero .lead { font-size: 1.02rem; color: var(--text); max-width: none; margin-bottom: 1.2rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .hero .btn-row { flex-direction: column; gap: .6rem; }
+  .hero .btn-row .btn { width: 100%; min-height: 52px; font-size: 1.02rem; }
+  .hero .btn-ghost { background: rgba(11,11,11,.55); backdrop-filter: blur(4px); }
+  .scroll-cue { display: block; position: absolute; z-index: 2; bottom: 1.1rem; inset-inline-start: 50%; width: 22px; height: 22px; margin-inline-start: -11px; border-inline-end: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); animation: cue 1.8s ease-in-out infinite; }
+  @keyframes cue { 0%, 100% { opacity: .25; translate: 0 -6px; } 50% { opacity: 1; translate: 0 4px; } }
+
+  /* פס עובדות: רשת 2x2 */
+  .facts-strip { grid-template-columns: 1fr 1fr; }
+  .facts-strip li { padding: 1.2rem .9rem; border-inline-start: 0; border-bottom: 1px solid var(--line); }
+  .facts-strip li:nth-child(odd) { border-inline-end: 1px solid var(--line); }
+  .facts-strip li:nth-last-child(-n+2) { border-bottom: 0; }
+  .facts-strip b { font-size: 1.15rem; }
+
+  /* שורה רצה גדולה יותר */
+  .marquee span { font-size: 1.5rem; padding: 1.2rem 1.6rem; gap: 2.6rem; }
+  .marquee-track { animation-duration: 24s; }
+
+  /* גלריה: קרוסלה נגללת בקצה המסך */
+  .gallery.rail { display: flex; column-count: auto; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -1rem; padding: 0 1rem 1rem; -webkit-overflow-scrolling: touch; }
+  .gallery.rail li { flex: 0 0 76%; margin: 0; scroll-snap-align: center; }
+  .gallery.rail .gallery-item { aspect-ratio: 4 / 5; }
+  .gallery.rail .gallery-item img { height: 100%; object-fit: cover; }
+
+  /* כרטיסי שירות: קרוסלה עם ספרות גדולות */
+  .grid.rail { display: flex; gap: .75rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -1rem !important; padding: 0 1rem 1rem !important; counter-reset: c; }
+  .grid.rail .card { flex: 0 0 80%; scroll-snap-align: center; min-height: 210px; padding: 3.2rem 1.3rem 1.3rem; counter-increment: c; }
+  .grid.rail .card::after { content: counter(c, decimal-leading-zero); position: absolute; top: .7rem; inset-inline-end: 1.1rem; font-size: 2.4rem; font-weight: 900; line-height: 1; color: transparent; -webkit-text-stroke: 1px var(--gold); }
+
+  /* שלבים: ציר זמן אנכי */
+  .steps { display: block; border-top: 0; position: relative; padding-inline-start: 0; }
+  .steps::before { content: ''; position: absolute; inset-inline-start: 1.55rem; top: .5rem; bottom: .5rem; width: 1px; background: var(--gold-line); }
+  .steps li { display: block; border: 0; padding: .4rem 0 1.6rem 0; padding-inline-start: 4.4rem; position: relative; }
+  .steps li::before { position: absolute; inset-inline-start: 0; top: 0; width: 3.1rem; height: 3.1rem; display: grid; place-items: center; font-size: 1.15rem; -webkit-text-stroke: 0; color: var(--gold); background: var(--bg); border: 1px solid var(--gold); border-radius: 50%; margin: 0; z-index: 1; }
+
+  /* הצהרה ומקטעים */
+  .statement { font-size: 1.35rem; }
+  section.block { padding: 3rem 0; }
+  section.block .section-head h2 { font-size: 1.9rem; }
+  .cta-box { padding: 1.6rem 1.3rem; }
+  .cta-box .btn-row { flex-direction: column; }
+  .cta-box .btn { width: 100%; }
+
+  /* חשיפה: כניסה מהצד לכרטיסים וקרוסלות */
+  .js .rail .reveal { transform: translateX(-28px) scale(.97); }
+  .js .rail .reveal.in { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 .ln, .scroll-cue, .wa-float::after { animation: none !important; }
+  .progress { transition: none; }
+}

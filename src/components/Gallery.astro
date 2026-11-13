@@ -1,8 +1,8 @@
 ---
 // גלריה עם הגדלה (dialog). בלי ספריות. נגיש במקלדת.
-const { items, eager = 0 } = Astro.props;
+const { items, eager = 0, rail = false } = Astro.props;
 ---
-<ul class="gallery" role="list">
+<ul class={rail ? 'gallery rail' : 'gallery'} role="list">
   {items.map((it, i) => (
     <li class="reveal">
       <button type="button" class="gallery-item" data-index={i} aria-label={`הגדלת תמונה: ${it.alt}`}>
