@@ -75,6 +75,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#0b0b0b" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
   <link rel="sitemap" href="/sitemap-index.xml" />
   {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 </head>
@@ -83,7 +84,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
   <header class="site-header">
     <div class="wrap header-row">
       <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">DS</span>
+        <img class="brand-logo" src="/images/logo-david-sade.webp" alt="" width="40" height="40" />
         <span>דוד שדה</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
@@ -119,6 +120,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
     <div class="wrap">
       <div class="footer-grid">
         <div>
+          <img class="footer-logo" src="/images/logo-david-sade.webp" alt="לוגו דוד שדה, Tattoo Artist" width="72" height="72" loading="lazy" />
           <h2>{business.name}</h2>
           <p>סטודיו פרטי בעומר, צמוד לבאר שבע. ריאליזם שחור-אפור, קאברים ופירסינג.</p>
           <p class="insight">{business.slogan}</p>
@@ -128,6 +130,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
           <ul>
             <li><a href="/services#tattoos">קעקועים</a></li>
             <li><a href="/services#piercing">פירסינג</a></li>
+            <li><a href="/portfolio">תיק עבודות</a></li>
             <li><a href="/private-lessons">לימוד קעקועים פרטני</a></li>
             <li><a href="/sketch">סקיצה לקעקוע</a></li>
           </ul>
@@ -166,6 +169,8 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
 
 
   <script>
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+    document.querySelectorAll('.reveal').forEach((el) => io ? io.observe(el) : el.classList.add('in'));
     const t = document.querySelector('.nav-toggle');
     const n = document.getElementById('main-nav');
     t?.addEventListener('click', () => {

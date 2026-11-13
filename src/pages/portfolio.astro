@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Gallery from '../components/Gallery.astro';
+import Cta from '../components/Cta.astro';
+import { works } from '../data/portfolio.js';
+---
+<Base title="תיק עבודות קעקועים | דוד שדה"
+  description="עבודות קעקוע של דוד שדה: קו דק, גיאומטרי, פורטרטים וקאברים. סטודיו פרטי בעומר, צמוד לבאר שבע."
+  crumbs={[{ label: 'תיק עבודות', href: '/portfolio' }]}>
+  <section class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">עבודות של דוד</p>
+      <h1>תיק עבודות קעקועים</h1>
+      <p class="lead">מבחר עבודות מהסטודיו. לחצו על תמונה כדי להגדיל. לעוד עבודות, בקרו באינסטגרם.</p>
+    </header>
+    <Gallery items={works} eager={4} />
+    <Cta title="יש לכם רעיון דומה?" text="שלחו לדוד את הרעיון בוואטסאפ ונקבע ייעוץ וסקיצה אישית." waText="היי דוד, ראיתי את תיק העבודות ואשמח לייעוץ" />
+  </section>
+</Base>

@@ -11,6 +11,7 @@ export const nav = [
   { href: '/tattoos/realism', label: 'ריאליזם' },
   { href: '/tattoos/cover-up', label: 'קאברים' },
   { href: '/piercing', label: 'פירסינג' },
+  { href: '/portfolio', label: 'תיק עבודות' },
   { href: '/private-lessons', label: 'לימוד פרטני' },
   { href: '/blog', label: 'מאמרים' },
   { href: '/about', label: 'אודות' },

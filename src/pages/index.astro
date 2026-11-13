@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Cards from '../components/Cards.astro';
 import Cta from '../components/Cta.astro';
+import Gallery from '../components/Gallery.astro';
+import { works, portrait } from '../data/portfolio.js';
 import { tattoos, piercings, posts } from '../data/services.js';
 import { wa, business } from '../data/site.js';
 const featured = tattoos.filter((t) => t.featured);
@@ -11,14 +13,29 @@ const latest = posts.slice(0, 3);
 <Base title="סטודיו לקעקועים ופירסינג ליד באר שבע | דוד שדה"
   description="סטודיו פרטי לקעקועים ופירסינג בעומר, צמוד לבאר שבע. דוד שדה מתמחה בריאליזם שחור-אפור ובקאברים, עם ייעוץ וסקיצה אישית לכל קעקוע.">
   <section class="hero">
-    <div class="wrap">
-      <p class="eyebrow">{business.slogan}</p>
-      <h1>סטודיו לקעקועים ופירסינג – דוד שדה</h1>
-      <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. דוד מקעקע כבר כעשור, ומתמחה בריאליזם בשחור-אפור ובקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
-      <div class="btn-row">
-        <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
-        <a class="btn btn-ghost" href="/services">לכל השירותים</a>
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">{business.slogan}</p>
+        <h1>סטודיו לקעקועים ופירסינג – דוד שדה</h1>
+        <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. דוד מקעקע כבר כעשור, ומתמחה בריאליזם בשחור-אפור ובקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
+        <div class="btn-row">
+          <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
+          <a class="btn btn-ghost" href="/portfolio">לתיק העבודות</a>
+        </div>
       </div>
+      <div class="hero-photo">
+        <img src={`/images/${portrait.file}`} alt={portrait.alt} width={portrait.w} height={portrait.h} fetchpriority="high" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>עבודות אחרונות</h2>
+        <a href="/portfolio">לתיק העבודות המלא ‹</a>
+      </div>
+      <Gallery items={works.slice(0, 6)} />
     </div>
   </section>
 

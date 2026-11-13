@@ -1,0 +1,49 @@
+---
+// גלריה עם הגדלה (dialog). בלי ספריות. נגיש במקלדת.
+const { items, eager = 0 } = Astro.props;
+---
+<ul class="gallery" role="list">
+  {items.map((it, i) => (
+    <li class="reveal">
+      <button type="button" class="gallery-item" data-index={i} aria-label={`הגדלת תמונה: ${it.alt}`}>
+        <img src={`/images/work/${it.file}`} alt={it.alt} width={it.w} height={it.h}
+          loading={i < eager ? 'eager' : 'lazy'} decoding="async" />
+      </button>
+    </li>
+  ))}
+</ul>
+
+<dialog class="lightbox" aria-label="הגדלת תמונה">
+  <button type="button" class="lb-close" aria-label="סגירה">×</button>
+  <button type="button" class="lb-prev" aria-label="התמונה הקודמת">›</button>
+  <figure>
+    <img alt="" />
+    <figcaption></figcaption>
+  </figure>
+  <button type="button" class="lb-next" aria-label="התמונה הבאה">‹</button>
+</dialog>
+
+<script>
+  const items = [...document.querySelectorAll('.gallery-item')];
+  const dlg = document.querySelector('dialog.lightbox');
+  if (dlg && items.length) {
+    const img = dlg.querySelector('img');
+    const cap = dlg.querySelector('figcaption');
+    let cur = 0;
+    const show = (i) => {
+      cur = (i + items.length) % items.length;
+      const src = items[cur].querySelector('img');
+      img.src = src.src; img.alt = src.alt; cap.textContent = src.alt;
+    };
+    items.forEach((b, i) => b.addEventListener('click', () => { show(i); dlg.showModal(); }));
+    dlg.querySelector('.lb-close').addEventListener('click', () => dlg.close());
+    dlg.querySelector('.lb-prev').addEventListener('click', () => show(cur - 1));
+    dlg.querySelector('.lb-next').addEventListener('click', () => show(cur + 1));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(cur + 1);
+      if (e.key === 'ArrowRight') show(cur - 1);
+    });
+    dlg.addEventListener('close', () => items[cur]?.focus());
+  }
+</script>

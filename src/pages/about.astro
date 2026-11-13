@@ -1,6 +1,7 @@
 ---
 import Page from '../layouts/Page.astro';
 import { business } from '../data/site.js';
+import { portrait } from '../data/portfolio.js';
 const site = Astro.site.href.replace(/\/$/, '');
 const person = {
   '@context': 'https://schema.org', '@type': 'Person', '@id': site + '/about#david',
@@ -12,6 +13,9 @@ const person = {
 <Page title="דוד שדה – מקעקע ריאליזם וקאברים" metaTitle="אודות דוד שדה | מקעקע ריאליזם שחור-אפור"
   description="דוד שדה מקעקע כבר כעשור ומתמחה בריאליזם שחור-אפור ובקאברים. הסיפור שלו, איך הוא עובד, והסטודיו הפרטי בעומר."
   crumbs={[{ label: 'אודות', href: '/about' }]} schema={[person]}>
+  <figure class="about-photo">
+    <img src={`/images/${portrait.file}`} alt={portrait.alt} width={portrait.w} height={portrait.h} loading="eager" decoding="async" />
+  </figure>
   <section class="facts" aria-labelledby="facts-h">
     <h2 id="facts-h">הסטודיו בקצרה</h2>
     <dl>

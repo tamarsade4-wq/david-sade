@@ -69,12 +69,12 @@
 
 ## סטטוס (13.11.2026)
 - האתר החדש באוויר ב-david-sade.pages.dev, 50 עמודים, CMS עובד.
-- **דומיין davidsade.co.il**: נקנה ב-LiveDNS. שרתי השמות עודכנו ל-`peter.ns.cloudflare.com` ו-`tegan.ns.cloudflare.com`. האזור נוסף ל-Cloudflare (תוכנית Free). בבדיקה האחרונה הרישום באיגוד האינטרנט עוד לא הושלם.
+- **דומיין davidsade.co.il**: מחובר ועובד (13.11.2026). האתר עולה ב-https://davidsade.co.il, ‏www מפנה 301 לכתובת הראשית, ‏robots.txt ו-`sitemap-index.xml` זמינים. משימה 1 הושלמה.
 - **האתר הישן בשופיקס** (ja3y0en8lyu1sj5bm4cjsauxxqo2.shopix.me) עדיין באוויר. אחרי שהדומיין עולה: לבדוק אם היה לו דומיין ו-URLים מאונדקסים, ולהפנות.
 - **אפליקציית הסקיצות** ב-Base44 (https://ink-crazy-sketch-flow.base44.app, לא מפורסמת): גוף SVG חזית/גב, סינון מילים + מסווג LLM, הגבלה 5 ביום. ממתין: החלטה על שדרוג Builder+ (סינון בצד השרת, החלטה של תמר), 12 תיקוני נגישות, צ'קבוקס הסכמה, ואז קישור מ-/sketch (אולי sketch.davidsade.co.il).
 
 ## משימות פתוחות (לפי סדר)
-1. **לחבר את הדומיין**: לבדוק `dig NS davidsade.co.il`. כשמופיעים שרתי Cloudflare: ב-Cloudflare לבדוק שהאזור Active, ובפרויקט Pages ‏`david-sade` → Custom domains להוסיף `davidsade.co.il` ו-`www.davidsade.co.il`, עם www שמפנה לכתובת הראשית.
+1. ~~**לחבר את הדומיין**~~ — הושלם 13.11.2026.
 2. **Google Search Console**: לאמת את הדומיין (רשומת TXT ב-Cloudflare) ולהגיש `https://davidsade.co.il/sitemap-index.xml`.
 3. **פרטי העסק** ב-`business.json`: שם העוסק הרשמי, מספר עוסק, כתובת, שעות, רכז/ת נגישות. ממתינים לתמר.
 4. **סקר מתחרים ומילות מפתח** לקעקועים בבאר שבע (יש פרומט מוכן בסוף הקובץ). לפי התוצאות לעדכן Titles, H1, מטא ועמודים חדשים.
