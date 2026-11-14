@@ -315,3 +315,8 @@ section.block .section-head::after { content: ''; position: absolute; inset-inli
 @media (prefers-reduced-motion: reduce) { .subnav { transition: none; transform: none; } }
 .main-nav .nav-social ul { flex-direction: row; padding: 0; gap: .5rem; }
 @media (max-width: 900px) { .main-nav .nav-social ul { justify-content: flex-start; padding: 0; } }
+
+/* סרטונים בגלריה */
+.gallery-item.is-video::before { content: ''; position: absolute; z-index: 2; inset-inline-end: .6rem; bottom: .6rem; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: rgba(11,11,11,.72) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l9-5.5z' fill='%23C9A24A'/%3E%3C/svg%3E") center/60% no-repeat; border: 1px solid var(--gold); }
+.lightbox video { max-height: 72vh; width: 100%; border-radius: 8px; }
+.works-section { margin: 2.5rem 0; }

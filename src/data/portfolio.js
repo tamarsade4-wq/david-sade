@@ -15,13 +15,16 @@ const byName = Object.fromEntries(
 export const works = (
   await Promise.all(
     (data.works || []).map(async (w) => {
-      const file = String(w.image || '').split('/').pop();
+      const isVideo = Boolean(w.video);
+      const file = String(w.image || w.poster || '').split('/').pop();
       const meta = byName[file.toLowerCase()];
       if (!meta) return null; // תמונה שנמחקה או לא קיימת: מדלגים
       const thumb = await getImage({ src: meta, width: 800, format: 'webp', quality: 80 });
       const full = await getImage({ src: meta, width: 1400, format: 'webp', quality: 82 });
       return {
         file,
+        video: isVideo ? w.video : '',
+        category: w.category || '',
         src: thumb.src,
         full: full.src,
         w: thumb.attributes.width,
@@ -31,6 +34,9 @@ export const works = (
     }),
   )
 ).filter(Boolean);
+
+// עבודות (תמונות וסרטונים) של קטגוריה אחת: slug של קעקוע או פירסינג.
+export const worksFor = (slug) => works.filter((w) => w.category === slug);
 
 export const portrait = {
   file: 'david-at-work.webp',

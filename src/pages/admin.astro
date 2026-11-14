@@ -1,0 +1,235 @@
+---
+// דף העלאה פשוט לדוד: בוחרים קטגוריה, תמונות או סרטונים, ולוחצים "העלאה".
+// עובד מול הפונקציות ב-functions/api. ראו functions/README.md להגדרות ב-Cloudflare.
+import '@fontsource/heebo/400.css';
+import '@fontsource/heebo/700.css';
+import { tattooShort, piercingShort } from '../data/nav.js';
+const tattooOpts = Object.entries(tattooShort).filter(([k]) => k !== 'consultation');
+const piercingOpts = Object.entries(piercingShort);
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>ניהול האתר | דוד שדה</title>
+  <style is:global>
+    :root { --bg:#0B0B0B; --gold:#C9A24A; --text:#F2EDE4; --muted:#A8A196; --surface:#161616; --line:#2a2a2a; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:'Heebo',system-ui,sans-serif; font-size:18px; line-height:1.6; }
+    main { max-width:640px; margin:0 auto; padding:1.5rem 1rem 4rem; }
+    h1 { font-size:1.6rem; margin:0 0 .3rem; }
+    h1 span { color:var(--gold); }
+    p.sub { color:var(--muted); margin:0 0 1.5rem; }
+    .card { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.2rem; margin-bottom:1.2rem; }
+    label { display:block; font-weight:700; margin:0 0 .4rem; }
+    input[type=password], input[type=text], select { width:100%; font:inherit; color:var(--text); background:#0f0f0f; border:1px solid var(--line); border-radius:8px; padding:.8rem; margin-bottom:1rem; }
+    input:focus, select:focus, button:focus-visible, .drop:focus-within { outline:2px solid var(--gold); outline-offset:2px; }
+    .drop { display:block; border:2px dashed var(--gold); border-radius:12px; padding:2rem 1rem; text-align:center; cursor:pointer; margin-bottom:1rem; }
+    .drop strong { display:block; font-size:1.2rem; color:var(--gold); }
+    .drop small { color:var(--muted); }
+    .drop input { position:absolute; opacity:0; width:1px; height:1px; }
+    .btn { display:block; width:100%; font:inherit; font-weight:700; font-size:1.15rem; color:#0B0B0B; background:var(--gold); border:0; border-radius:10px; padding:1rem; cursor:pointer; }
+    .btn[disabled] { opacity:.5; cursor:wait; }
+    .btn.ghost { background:transparent; color:var(--text); border:1px solid var(--line); font-weight:400; font-size:1rem; padding:.5rem .9rem; display:inline-block; width:auto; }
+    ul.files { list-style:none; padding:0; margin:0 0 1rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:.5rem; }
+    ul.files li { position:relative; aspect-ratio:1; border-radius:8px; overflow:hidden; border:1px solid var(--line); background:#000; font-size:.75rem; }
+    ul.files img, ul.files video { width:100%; height:100%; object-fit:cover; }
+    #msg { min-height:1.6rem; margin-top:1rem; }
+    #msg.ok { color:#9be39b; } #msg.err { color:#ff8f8f; }
+    progress { width:100%; accent-color:var(--gold); }
+    .row { display:flex; justify-content:space-between; align-items:center; gap:.6rem; padding:.55rem 0; border-bottom:1px solid var(--line); font-size:.95rem; }
+    .row:last-child { border:0; }
+    .row span { color:var(--muted); }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>ניהול האתר <span>·</span> דוד שדה</h1>
+  <p class="sub">העלאת תמונות וסרטונים לאתר</p>
+
+  <section id="login" class="card">
+    <label for="pw">סיסמה</label>
+    <input id="pw" type="password" autocomplete="current-password" />
+    <button id="loginBtn" class="btn" type="button">כניסה</button>
+    <p id="loginMsg" class="err" role="alert"></p>
+  </section>
+
+  <section id="app" hidden>
+    <div class="card">
+      <label for="cat">לאיזו קטגוריה להעלות?</label>
+      <select id="cat">
+        <option value="">כללי (תיק העבודות בלבד)</option>
+        <optgroup label="קעקועים">
+          {tattooOpts.map(([k, v]) => <option value={k}>{v}</option>)}
+        </optgroup>
+        <optgroup label="פירסינג">
+          {piercingOpts.map(([k, v]) => <option value={k}>{v}</option>)}
+        </optgroup>
+      </select>
+
+      <label class="drop" for="files">
+        <strong>לחצו לבחירת תמונות או סרטונים</strong>
+        <small>אפשר לבחור כמה ביחד. סרטון עד 90MB.</small>
+        <input id="files" type="file" accept="image/*,video/*" multiple />
+      </label>
+      <ul id="preview" class="files"></ul>
+
+      <label for="alt">תיאור קצר (לא חובה): מה רואים ואיפה בגוף</label>
+      <input id="alt" type="text" placeholder="למשל: פורטרט של כלב על הזרוע" />
+
+      <button id="go" class="btn" type="button" disabled>העלאה לאתר</button>
+      <progress id="bar" max="100" value="0" hidden></progress>
+      <p id="msg" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1.2rem;margin:0 0 .6rem">מה כבר בגלריה</h2>
+      <div id="list">טוען…</div>
+    </div>
+    <button id="logout" class="btn ghost" type="button">יציאה</button>
+  </section>
+</main>
+
+<script is:inline>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  let pw = '';
+  try { pw = sessionStorage.getItem('ds_pw') || ''; } catch (e) {}
+  let picked = [];
+
+  async function api(path, opts = {}) {
+    const r = await fetch(path, { ...opts, headers: { ...(opts.headers || {}), 'x-admin-password': pw } });
+    let data = null;
+    try { data = await r.json(); } catch (e) {}
+    if (!r.ok) throw new Error((data && data.error) || 'שגיאה ' + r.status);
+    return data;
+  }
+
+  function showApp() { $('login').hidden = true; $('app').hidden = false; loadList(); }
+  async function tryLogin() {
+    $('loginMsg').textContent = '';
+    try { await api('/api/login', { method: 'POST' }); try { sessionStorage.setItem('ds_pw', pw); } catch (e) {} showApp(); }
+    catch (e) { pw = ''; $('loginMsg').textContent = 'הסיסמה לא נכונה'; }
+  }
+  $('loginBtn').onclick = () => { pw = $('pw').value; tryLogin(); };
+  $('pw').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('loginBtn').click(); });
+  $('logout').onclick = () => { try { sessionStorage.removeItem('ds_pw'); } catch (e) {} location.reload(); };
+  if (pw) tryLogin();
+
+  const rnd = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+  function toBase64(blob) {
+    return new Promise((res, rej) => {
+      const fr = new FileReader();
+      fr.onload = () => res(String(fr.result).split(',')[1]);
+      fr.onerror = rej;
+      fr.readAsDataURL(blob);
+    });
+  }
+
+  async function shrinkImage(file, max = 1600) {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    return new Promise((res) => c.toBlob(res, 'image/jpeg', 0.86));
+  }
+
+  function videoPoster(file) {
+    return new Promise((res, rej) => {
+      const v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto';
+      const url = URL.createObjectURL(file);
+      v.src = url;
+      v.onloadeddata = () => { v.currentTime = Math.min(0.5, (v.duration || 1) / 2); };
+      v.onseeked = () => {
+        const k = Math.min(1, 1200 / Math.max(v.videoWidth, v.videoHeight));
+        const c = document.createElement('canvas');
+        c.width = Math.round(v.videoWidth * k); c.height = Math.round(v.videoHeight * k);
+        c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+        c.toBlob((b) => { URL.revokeObjectURL(url); res(b); }, 'image/jpeg', 0.85);
+      };
+      v.onerror = () => { URL.revokeObjectURL(url); rej(new Error('לא ניתן לקרוא את הסרטון. נסו קובץ MP4.')); };
+    });
+  }
+
+  $('files').onchange = (e) => {
+    picked = [...e.target.files];
+    const ul = $('preview'); ul.innerHTML = '';
+    picked.forEach((f) => {
+      const li = document.createElement('li');
+      const url = URL.createObjectURL(f);
+      if (f.type.startsWith('video/')) { const v = document.createElement('video'); v.src = url; v.muted = true; li.append(v); }
+      else { const i = document.createElement('img'); i.src = url; i.alt = ''; li.append(i); }
+      ul.append(li);
+    });
+    $('go').disabled = picked.length === 0;
+    $('msg').textContent = ''; $('msg').className = '';
+  };
+
+  function say(t, cls = '') { $('msg').textContent = t; $('msg').className = cls; }
+
+  $('go').onclick = async () => {
+    $('go').disabled = true;
+    $('bar').hidden = false; $('bar').value = 0;
+    const category = $('cat').value;
+    const alt = $('alt').value.trim();
+    const items = [];
+    try {
+      for (let i = 0; i < picked.length; i++) {
+        const f = picked[i];
+        say(`מכין ${i + 1} מתוך ${picked.length}…`);
+        if (f.type.startsWith('video/')) {
+          if (f.size > 90 * 1024 * 1024) throw new Error('הסרטון גדול מדי (מעל 90MB). אפשר לקצר אותו.');
+          const name = rnd() + (/\.webm$/i.test(f.name) ? '.webm' : '.mp4');
+          const poster = await videoPoster(f);
+          say(`מעלה סרטון ${i + 1} מתוך ${picked.length}…`);
+          await api('/api/video?name=' + name, { method: 'PUT', body: f });
+          items.push({ type: 'video', name, poster: await toBase64(poster), alt, category });
+        } else if (f.type.startsWith('image/')) {
+          const blob = await shrinkImage(f);
+          items.push({ type: 'photo', name: rnd() + '.jpg', data: await toBase64(blob), alt, category });
+        }
+        $('bar').value = Math.round(((i + 1) / picked.length) * 80);
+      }
+      say('שומר באתר…');
+      await api('/api/publish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ items }) });
+      $('bar').value = 100;
+      say('הועלה בהצלחה! זה יופיע באתר בעוד כשתי דקות.', 'ok');
+      picked = []; $('files').value = ''; $('preview').innerHTML = ''; $('alt').value = '';
+      loadList();
+    } catch (e) {
+      say(e.message || 'משהו השתבש. נסו שוב.', 'err');
+      $('go').disabled = picked.length === 0;
+    }
+  };
+
+  async function loadList() {
+    try {
+      const { works } = await api('/api/works');
+      const box = $('list'); box.innerHTML = '';
+      if (!works.length) { box.textContent = 'עוד אין עבודות.'; return; }
+      works.forEach((w, i) => {
+        const row = document.createElement('div'); row.className = 'row';
+        const t = document.createElement('div');
+        t.textContent = (w.video ? 'סרטון: ' : '') + (w.alt || '—');
+        if (w.category) { const s = document.createElement('span'); s.textContent = ' · ' + w.category; t.append(s); }
+        const b = document.createElement('button'); b.className = 'btn ghost'; b.type = 'button'; b.textContent = 'מחיקה';
+        b.onclick = async () => {
+          if (!confirm('למחוק את העבודה הזו מהאתר?')) return;
+          b.disabled = true;
+          try { await api('/api/remove', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ index: i, image: w.image || w.poster || '', video: w.video || '' }) }); say('נמחק. יתעדכן באתר בעוד כשתי דקות.', 'ok'); loadList(); }
+          catch (e) { say(e.message, 'err'); b.disabled = false; }
+        };
+        row.append(t, b); box.append(row);
+      });
+    } catch (e) { $('list').textContent = 'לא הצלחתי לטעון את הרשימה.'; }
+  }
+})();
+</script>
+</body>
+</html>

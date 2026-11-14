@@ -5,7 +5,7 @@ const { items, eager = 0, rail = false } = Astro.props;
 <ul class={rail ? 'gallery rail' : 'gallery'} role="list">
   {items.map((it, i) => (
     <li class="reveal">
-      <button type="button" class="gallery-item" data-index={i} aria-label={`הגדלת תמונה: ${it.alt}`}>
+      <button type="button" class={it.video ? 'gallery-item is-video' : 'gallery-item'} data-index={i} data-video={it.video || undefined} aria-label={`${it.video ? 'הפעלת סרטון' : 'הגדלת תמונה'}: ${it.alt}`}>
         <img src={it.src} data-full={it.full} alt={it.alt} width={it.w} height={it.h}
           loading={i < eager ? 'eager' : 'lazy'} decoding="async" />
       </button>
@@ -18,6 +18,7 @@ const { items, eager = 0, rail = false } = Astro.props;
   <button type="button" class="lb-prev" aria-label="התמונה הקודמת">›</button>
   <figure>
     <img alt="" />
+    <video controls playsinline preload="none" hidden></video>
     <figcaption></figcaption>
   </figure>
   <button type="button" class="lb-next" aria-label="התמונה הבאה">‹</button>
@@ -28,12 +29,17 @@ const { items, eager = 0, rail = false } = Astro.props;
   const dlg = document.querySelector('dialog.lightbox');
   if (dlg && items.length) {
     const img = dlg.querySelector('img');
+    const vid = dlg.querySelector('video');
     const cap = dlg.querySelector('figcaption');
     let cur = 0;
     const show = (i) => {
       cur = (i + items.length) % items.length;
       const src = items[cur].querySelector('img');
-      img.src = src.dataset.full || src.src; img.alt = src.alt; cap.textContent = src.alt;
+      vid.pause();
+      const v = items[cur].dataset.video;
+      if (v) { vid.src = v; vid.poster = src.dataset.full || src.src; vid.hidden = false; img.hidden = true; }
+      else { vid.removeAttribute('src'); vid.hidden = true; img.hidden = false; img.src = src.dataset.full || src.src; img.alt = src.alt; }
+      cap.textContent = src.alt;
     };
     items.forEach((b, i) => b.addEventListener('click', () => { show(i); dlg.showModal(); }));
     dlg.querySelector('.lb-close').addEventListener('click', () => dlg.close());
@@ -44,6 +50,6 @@ const { items, eager = 0, rail = false } = Astro.props;
       if (e.key === 'ArrowLeft') show(cur + 1);
       if (e.key === 'ArrowRight') show(cur - 1);
     });
-    dlg.addEventListener('close', () => items[cur]?.focus());
+    dlg.addEventListener('close', () => { vid.pause(); items[cur]?.focus(); });
   }
 </script>

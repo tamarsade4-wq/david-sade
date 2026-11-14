@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import PageBanner from '../../components/PageBanner.astro';
+import Gallery from '../../components/Gallery.astro';
+import { worksFor } from '../../data/portfolio.js';
 import { tattoos } from '../../data/services.js';
 import { relatedTattoos } from '../../data/nav.js';
 
@@ -10,6 +12,7 @@ export function getStaticPaths() {
   return tattoos.map((s) => ({ params: { slug: s.slug }, props: { s } }));
 }
 const { s } = Astro.props;
+const works = worksFor(s.slug);
 const others = relatedTattoos(s.slug, 4);
 const service = {
   '@context': 'https://schema.org', '@type': 'Service',
@@ -28,6 +31,12 @@ const service = {
       <h1>{s.title}</h1>
     </header>
     <div class="prose" set:html={s.body} />
+    {works.length > 0 && (
+      <section class="works-section" aria-labelledby="works-h">
+        <h2 id="works-h">עבודות</h2>
+        <Gallery items={works} />
+      </section>
+    )}
     <Cta waText={s.waText} />
     <nav class="related" aria-label="עוד שירותי קעקוע">
       <h2>עוד שירותי קעקוע</h2>
