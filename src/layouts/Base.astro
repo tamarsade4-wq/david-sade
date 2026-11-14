@@ -41,7 +41,10 @@ const org = {
   logo: site + '/images/logo-david-sade.webp',
   founder: { '@type': 'Person', '@id': site + '/about#david', name: 'דוד שדה' },
   knowsAbout: ['קעקוע ריאליסטי בשחור-אפור', 'קאבר לקעקוע', 'פורטרט', 'קעקוע הנצחה', 'פירסינג'],
-  ...(business.hours ? { openingHours: business.hours } : {}),
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '18:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '14:00' },
+  ],
   sameAs: [business.instagram, business.facebook].filter(Boolean),
 };
 
