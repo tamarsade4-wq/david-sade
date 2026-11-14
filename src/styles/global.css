@@ -14,6 +14,7 @@
   --wa: #157a3e;          /* וואטסאפ, ניגודיות 5.4:1 מול לבן */
   --radius: 14px;
   --max: 1120px;
+  --header-h: 84px;
   --font: 'Heebo', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 }
 
@@ -46,7 +47,7 @@ p { margin: 0 0 1em; }
 
 /* header */
 .site-header { position: sticky; top: 0; z-index: 50; background: rgba(11,11,11,.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
-.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 64px; }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: var(--header-h); }
 .brand { display: flex; align-items: center; gap: .6rem; color: var(--text); text-decoration: none; font-weight: 900; font-size: 1.15rem; }
 .brand-mark { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--gold); display: grid; place-items: center; color: var(--gold); font-size: .85rem; font-weight: 900; }
 .main-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .2rem; flex-wrap: wrap; }
@@ -55,7 +56,7 @@ p { margin: 0 0 1em; }
 .nav-toggle { display: none; background: none; border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: .45rem .7rem; font: inherit; cursor: pointer; }
 @media (max-width: 900px) {
   .nav-toggle { display: inline-flex; align-items: center; gap: .4rem; }
-  .main-nav { display: none; position: absolute; inset-inline: 0; top: 64px; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .main-nav { display: none; position: absolute; inset-inline: 0; top: var(--header-h); background: var(--bg); border-bottom: 1px solid var(--line); }
   .main-nav.open { display: block; }
   .main-nav ul { flex-direction: column; padding: .5rem 1rem 1rem; }
   .main-nav a { display: block; padding: .75rem .5rem; font-size: 1.05rem; }

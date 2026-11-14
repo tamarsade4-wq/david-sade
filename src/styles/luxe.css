@@ -146,7 +146,7 @@ section.block .section-head::after { content: ''; position: absolute; inset-inli
 /* ===== מובייל ===== */
 @media (max-width: 700px) {
   /* גיבור מסך מלא, התמונה ברקע */
-  .hero { min-height: calc(100svh - 64px); padding: 0; display: flex; align-items: flex-end; border-bottom: 0; }
+  .hero { min-height: calc(100svh - var(--header-h)); padding: 0; display: flex; align-items: flex-end; border-bottom: 0; }
   .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, #0b0b0b 6%, rgba(11,11,11,.82) 38%, rgba(11,11,11,.12) 78%, rgba(11,11,11,.35)); }
   .hero-grid { display: block; position: static; width: 100%; padding-block: 0 4.2rem; }
   .hero-text { position: relative; z-index: 2; }
@@ -256,3 +256,10 @@ section.block .section-head::after { content: ''; position: absolute; inset-inli
     @keyframes railIn { from { opacity: .35; scale: .94; } to { opacity: 1; scale: 1; } }
   }
 }
+
+/* ===== לוגו בכותרת העליונה: נוכחות ===== */
+.brand-logo { width: 64px; height: 64px; border: 2px solid var(--gold); box-shadow: 0 0 0 4px rgba(201,162,74,.14), 0 6px 22px rgba(0,0,0,.6); transition: transform .6s var(--ease), box-shadow .4s; animation: logoIn .9s var(--ease) both; background: #000; }
+.brand:hover .brand-logo, .brand:focus-visible .brand-logo { transform: rotate(8deg) scale(1.06); box-shadow: 0 0 0 5px rgba(201,162,74,.28), 0 8px 26px rgba(0,0,0,.7); }
+@keyframes logoIn { from { opacity: 0; transform: scale(.7) rotate(-12deg); } to { opacity: 1; transform: none; } }
+@media (max-width: 700px) { :root { --header-h: 76px; } .brand-logo { width: 56px; height: 56px; } }
+@media (prefers-reduced-motion: reduce) { .brand-logo { animation: none; } .brand:hover .brand-logo { transform: none; } }
