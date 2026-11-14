@@ -263,3 +263,10 @@ section.block .section-head::after { content: ''; position: absolute; inset-inli
 @keyframes logoIn { from { opacity: 0; transform: scale(.7) rotate(-12deg); } to { opacity: 1; transform: none; } }
 @media (max-width: 700px) { :root { --header-h: 76px; } .brand-logo { width: 56px; height: 56px; } }
 @media (prefers-reduced-motion: reduce) { .brand-logo { animation: none; } .brand:hover .brand-logo { transform: none; } }
+
+/* ===== קישורים לרשתות חברתיות ===== */
+.site-footer .social-link { display: inline-flex; align-items: center; gap: .7rem; color: var(--text); text-decoration: none; padding: .2rem 0; }
+.social-link .ico { width: 40px; height: 40px; padding: 9px; border: 1px solid var(--gold-line); border-radius: 50%; color: var(--gold); transition: background .3s, color .3s, transform .4s var(--ease), border-color .3s; flex: none; }
+.site-footer .social-link:hover { color: var(--gold); text-decoration: none; }
+.social-link:hover .ico, .social-link:focus-visible .ico { background: var(--gold); color: #0b0b0b; border-color: var(--gold); transform: translateY(-2px) rotate(-6deg); }
+@media (prefers-reduced-motion: reduce) { .social-link:hover .ico { transform: none; } }
