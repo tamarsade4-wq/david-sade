@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cards from '../../components/Cards.astro';
+import Cta from '../../components/Cta.astro';
+import { tattooGrouped } from '../../data/nav.js';
+const groups = tattooGrouped();
+const site = Astro.site.href.replace(/\/$/, '');
+const collection = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'קעקועים באזור באר שבע', url: site + '/tattoos', inLanguage: 'he',
+  about: { '@id': site + '/#business' },
+};
+---
+<Base title="קעקועים באזור באר שבע | דוד שדה"
+  description="כל סוגי הקעקועים אצל דוד שדה: ריאליזם שחור-אפור, קאברים, קו דק, שרוולים והנצחה. סטודיו פרטי בעומר, צמוד לבאר שבע."
+  crumbs={[{ label: 'קעקועים', href: '/tattoos' }]} schema={[collection]}
+  waText="היי דוד, אני מעוניין/ת בקעקוע ואשמח לייעוץ">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow">שירותי הסטודיו</p>
+      <h1>קעקועים באזור באר שבע</h1>
+      <p class="lead">ההתמחות של דוד שדה היא <a href="/tattoos/realism">ריאליזם בשחור-אפור</a> ו<a href="/tattoos/cover-up">קאברים לקעקועים ישנים</a>. כל קעקוע מתחיל בשיחה ו<a href="/tattoos/consultation">בסקיצה אישית</a>, בסטודיו פרטי ושקט בעומר, צמוד לבאר שבע.</p>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="/portfolio">לתיק העבודות</a>
+        <a class="btn btn-ghost" href="/tattoo-beer-sheva">מקעקע בבאר שבע</a>
+      </div>
+    </header>
+    {groups.map((g) => (
+      <section class="block" aria-labelledby={`g-${g.slugs[0]}`}>
+        <div class="section-head reveal"><h2 id={`g-${g.slugs[0]}`}>{g.title}</h2></div>
+        {g.blurb && <p>{g.blurb}</p>}
+        <Cards items={g.items} base="/tattoos" />
+      </section>
+    ))}
+    <Cta />
+  </div>
+</Base>

@@ -2,7 +2,9 @@
 import '../styles/global.css';
 import '../styles/luxe.css';
 import SocialIcons from '../components/SocialIcons.astro';
-import { business, nav, wa } from '../data/site.js';
+import { business, wa } from '../data/site.js';
+import { buildNav } from '../data/nav.js';
+const mainNav = buildNav();
 
 const {
   title,            // <title> – עד 60 תווים
@@ -97,9 +99,29 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
       </button>
       <nav id="main-nav" class="main-nav" aria-label="ניווט ראשי">
         <ul>
-          {nav.map((n) => (
-            <li><a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a></li>
-          ))}
+          {mainNav.map((n) => {
+            const inSection = n.match.some((m) => current === m || current.startsWith(m + '/'));
+            return (
+              <li class={n.groups ? (n.href === '/about' ? 'has-sub sub-end' : 'has-sub') : undefined}>
+                <a href={n.href} aria-current={current === n.href ? 'page' : undefined} class={inSection ? 'in-section' : undefined}>{n.label}</a>
+                {n.groups && (
+                  <div class="subnav">
+                    {n.groups.map((g) => (
+                      <div class="sub-col">
+                        {n.groups.length > 1 && <p class="sub-title">{g.title}</p>}
+                        <ul>
+                          {g.links.map((l) => (
+                            <li><a href={l.href} aria-current={current === l.href ? 'page' : undefined}>{l.label}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+          <li class="nav-cta"><a class="btn btn-gold" href={wa(waText)}>לקביעת ייעוץ</a></li>
           <li class="nav-social"><SocialIcons waText={waText} /></li>
         </ul>
       </nav>
@@ -131,13 +153,24 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
           <p class="insight">{business.slogan}</p>
         </div>
         <div>
-          <h2>שירותים</h2>
+          <h2>קעקועים</h2>
           <ul>
-            <li><a href="/services#tattoos">קעקועים</a></li>
-            <li><a href="/services#piercing">פירסינג</a></li>
+            <li><a href="/tattoos">כל הקעקועים</a></li>
+            <li><a href="/tattoos/realism">ריאליזם שחור-אפור</a></li>
+            <li><a href="/tattoos/cover-up">קאבר לקעקוע ישן</a></li>
+            <li><a href="/tattoos/small-fine-line">קטנים ופיין ליין</a></li>
+            <li><a href="/tattoos/consultation">ייעוץ וסקיצה</a></li>
             <li><a href="/portfolio">תיק עבודות</a></li>
-            <li><a href="/private-lessons">לימוד קעקועים פרטני</a></li>
-            <li><a href="/sketch">סקיצה לקעקוע</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>פירסינג</h2>
+          <ul>
+            <li><a href="/piercing">כל סוגי הפירסינג</a></li>
+            <li><a href="/piercing/helix">הליקס</a></li>
+            <li><a href="/piercing/nose">אף</a></li>
+            <li><a href="/piercing/septum">ספטום</a></li>
+            <li><a href="/piercing/titanium-jewelry">תכשיטי טיטניום</a></li>
           </ul>
         </div>
         <div>
@@ -146,9 +179,10 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
             <li><a href="/about">אודות דוד שדה</a></li>
             <li><a href="/studio">סטודיו פרטי</a></li>
             <li><a href="/tattoo-beer-sheva">מקעקע בבאר שבע</a></li>
+            <li><a href="/visit">מגיעים מרחוק</a></li>
+            <li><a href="/private-lessons">לימוד פרטני</a></li>
             <li><a href="/press">כתבו עלינו</a></li>
             <li><a href="/blog">מאמרים</a></li>
-            <li><a href="/visit">מגיעים מרחוק</a></li>
           </ul>
         </div>
         <div>
@@ -196,6 +230,19 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
     t?.addEventListener('click', () => {
       const open = n.classList.toggle('open');
       t.setAttribute('aria-expanded', String(open));
+    });
+    // תפריט נפתח: Escape סוגר, ומתאפס ביציאת העכבר או המיקוד
+    document.querySelectorAll('.has-sub').forEach((li) => {
+      const reset = () => li.classList.remove('dismissed');
+      li.addEventListener('mouseleave', reset);
+      li.addEventListener('focusout', (e) => { if (!li.contains(e.relatedTarget)) reset(); });
+      li.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && li.matches(':hover, :focus-within')) {
+          li.classList.add('dismissed');
+          li.querySelector(':scope > a')?.focus();
+          e.stopPropagation();
+        }
+      });
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && n.classList.contains('open')) {

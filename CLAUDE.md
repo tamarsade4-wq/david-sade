@@ -51,7 +51,7 @@
 - `src/data/extra-pages.json` – גוף העמודים "לימוד פרטני" ו"מגיעים מרחוק".
 - `src/layouts/Base.astro` – head, JSON-LD (TattooParlor + BreadcrumbList), דילוג לתוכן, ניווט, פוטר, כפתור וואטסאפ צף (בתוך הפוטר).
 - `src/layouts/Page.astro` – עמוד תוכן כללי. `src/components/Cards.astro`, `Cta.astro`.
-- `src/pages/` – index, services (פרקים #tattoos ו-#piercing), tattoos/[slug], piercing/index ו-[slug], blog, about (בלוק "הסטודיו בקצרה" + Person schema), studio, tattoo-beer-sheva, private-lessons, visit, press, contact, sketch, privacy, terms, accessibility, 404.
+- `src/pages/` – index, tattoos (מרכז הקעקועים) ו-tattoos/[slug], piercing/index ו-[slug], blog, about (בלוק "הסטודיו בקצרה" + Person schema), studio, tattoo-beer-sheva, private-lessons, visit, press, contact, sketch, privacy, terms, accessibility, 404.
 - `public/` – favicon.svg, og.jpg (תמונת שיתוף 1200x630), robots.txt, `_headers` (כותרות אבטחה ומטמון ב-Cloudflare), `images/` (לוגו, תמונת דוד, `work/` עבודות).
 - `src/data/portfolio.js` – רשימת תמונות תיק העבודות עם alt. `src/components/Gallery.astro` – גלריה עם הגדלה. עמוד `/portfolio`.
 - `src/data/posts.json` ו-`src/data/extra-pages.json`: posts.json כבר לא בשימוש (נשאר מהגרסה הקודמת, אפשר למחוק).
@@ -111,3 +111,9 @@ npx astro preview --port 4321
 - הריפו משוכפל ב-C:/Users/User/Desktop/david-sade-site, Node 26 מותקן. `npm run dev` / `npm run build`. התיקייה research/ לא נדחפת (ב-.gitignore).
 - נבדק ב-13.11.2026: axe 0 הפרות ב-51 העמודים ברוחב 1280 ו-375, בלי גלילה אופקית, JSON-LD תקין, בלי קישורים שבורים.
 - פייסבוק: הקישור הנכון הוא share/1auqCd7ojA (אושר ע"י תמר 13.11.2026). המסמך של בית המסרים מכיל קישור אחר, לא נכון.
+
+## מבנה הניווט (14.11.2026)
+- סרגל עליון (`src/data/nav.js`): קעקועים ▾, פירסינג ▾, תיק עבודות, לימוד פרטני, מאמרים, הסטודיו ▾, וכפתור "לקביעת ייעוץ" (וואטסאפ) ואייקוני רשתות. התפריטים הנפתחים נפתחים במעבר עכבר ובמיקוד מקלדת (Escape סוגר), ובמובייל מוצגים רק הקישורים הראשיים.
+- קבוצות הקעקועים מוגדרות ב-`nav.js` (tattooGroups). עמוד קעקוע חדש שלא רשום שם מופיע אוטומטית בקבוצה "עוד קעקועים" בעמוד /tattoos, אבל לא בתפריט הנפתח. פירסינג מקובץ לפי שדה group ב-JSON.
+- /services הוסר והופנה ב-301 ל-/tattoos (public/_redirects). /sketch לא בניווט.
+- הפוטר הוא מפת האתר: קעקועים, פירסינג, הסטודיו, צרו קשר ורשתות.
