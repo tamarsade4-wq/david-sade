@@ -149,7 +149,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
         <div>
           <img class="footer-logo" src="/images/logo-david-sade.webp" alt="לוגו דוד שדה, Tattoo Artist" width="72" height="72" loading="lazy" />
           <h2>{business.name}</h2>
-          <p>סטודיו פרטי בעומר, צמוד לבאר שבע. ריאליזם שחור-אפור, קאברים ופירסינג.</p>
+          <p>הסיפור שלך. האמנות שלנו.</p>
           <p class="insight">{business.slogan}</p>
         </div>
         <div>
@@ -188,6 +188,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
         <div>
           <h2>צרו קשר</h2>
           <ul>
+            <li>עומר, צמוד לבאר שבע</li>
             <li><a href={wa(waText)}>וואטסאפ: {business.phoneDisplay}</a></li>
             <li><a href={`tel:${business.phoneIntl}`}>טלפון: {business.phoneDisplay}</a></li>
             <li><a href={`mailto:${business.email}`}>{business.email}</a></li>

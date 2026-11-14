@@ -3,11 +3,11 @@ import { tattoos, piercings } from './services.js';
 
 // קבוצות הקעקועים (לפי כוונה). הכותרות הקצרות משמשות בתפריט.
 export const tattooGroups = [
-  { title: 'ריאליזם ופורטרטים', slugs: ['realism', 'portrait', 'memorial', 'animals'], blurb: 'ההתמחות של דוד: ריאליזם בשחור-אפור, פורטרטים וקעקועי הנצחה.' },
+  { title: 'ריאליזם ופורטרטים', slugs: ['realism', 'portrait', 'memorial', 'animals'], blurb: 'פורטרטים, בעלי חיים והנצחה, בצל ובעומק.' },
   { title: 'קאברים וחידוש', slugs: ['cover-up', 'refresh'], blurb: 'קעקוע ישן שכבר לא מתאים לכם? אפשר להפוך אותו ליצירה חדשה.' },
   { title: 'קו דק וגרפי', slugs: ['small-fine-line', 'geometric', 'abstract', 'trash-polka'], blurb: 'קעקועים קטנים, קווים עדינים וסגנונות גרפיים.' },
-  { title: 'פרויקטים גדולים', slugs: ['sleeve'], blurb: 'פרויקט אחד שלם, מתוכנן מראש.' },
-  { title: 'להתחיל', slugs: ['consultation'], blurb: 'כל קעקוע מתחיל בשיחה ובסקיצה אישית.' },
+  { title: 'פרויקטים גדולים', slugs: ['sleeve'], blurb: 'שרוול, גב או חזה.' },
+  { title: 'להתחיל', slugs: ['consultation'], blurb: 'שיחה וסקיצה לפני שמתחילים.' },
 ];
 
 export const tattooShort = {
@@ -79,4 +79,18 @@ export function buildNav() {
       }],
     },
   ];
+}
+
+// קישורים קשורים בסוף עמוד שירות: קודם מאותה קבוצה, ואז משאר העמודים.
+export function relatedTattoos(slug, n = 4) {
+  const g = tattooGrouped().find((x) => x.items.some((i) => i.slug === slug));
+  const same = g ? g.items.filter((i) => i.slug !== slug) : [];
+  const rest = tattoos.filter((t) => t.slug !== slug && !same.includes(t));
+  return [...same, ...rest].slice(0, n);
+}
+export function relatedPiercings(slug, n = 4) {
+  const me = piercings.find((p) => p.slug === slug);
+  const same = piercings.filter((p) => p.slug !== slug && me && p.group === me.group);
+  const rest = piercings.filter((p) => p.slug !== slug && !same.includes(p));
+  return [...same, ...rest].slice(0, n);
 }

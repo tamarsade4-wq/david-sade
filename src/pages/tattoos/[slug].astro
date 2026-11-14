@@ -4,12 +4,13 @@ import Cta from '../../components/Cta.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import PageBanner from '../../components/PageBanner.astro';
 import { tattoos } from '../../data/services.js';
+import { relatedTattoos } from '../../data/nav.js';
 
 export function getStaticPaths() {
   return tattoos.map((s) => ({ params: { slug: s.slug }, props: { s } }));
 }
 const { s } = Astro.props;
-const others = tattoos.filter((t) => t.slug !== s.slug);
+const others = relatedTattoos(s.slug, 4);
 const service = {
   '@context': 'https://schema.org', '@type': 'Service',
   name: s.title, serviceType: 'קעקוע', description: s.description,
@@ -30,8 +31,7 @@ const service = {
     <Cta waText={s.waText} />
     <nav class="related" aria-label="עוד שירותי קעקוע">
       <h2>עוד שירותי קעקוע</h2>
-      <ul>{others.map((o) => <li><a href={`/tattoos/${o.slug}`}>{o.title}</a></li>)}</ul>
+      <ul>{others.map((o) => <li><a href={`/tattoos/${o.slug}`}>{o.title}</a></li>)}<li><a href="/tattoos">כל הקעקועים</a></li></ul>
     </nav>
-    <RelatedLinks current={Astro.url.pathname} />
   </article>
 </Base>
