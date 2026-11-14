@@ -6,6 +6,7 @@ import Gallery from '../components/Gallery.astro';
 import { works, portrait } from '../data/portfolio.js';
 import { tattoos, piercings, posts } from '../data/services.js';
 import { wa, business } from '../data/site.js';
+import home from '../content/pages/home.json';
 const featured = tattoos.filter((t) => t.featured);
 const topPiercing = piercings.filter((p) => ['helix', 'nose', 'septum', 'daith'].includes(p.slug));
 const latest = posts.slice(0, 3);
@@ -17,7 +18,7 @@ const latest = posts.slice(0, 3);
       <div class="hero-text">
         <p class="eyebrow">{business.slogan}</p>
         <h1><span class="ln">סטודיו לקעקועים</span> <span class="ln">ופירסינג –</span> <span class="ln gold-mark">דוד שדה</span></h1>
-        <p class="lead">סטודיו פרטי בעומר, צמוד לבאר שבע. ההתמחות: ריאליזם בשחור-אפור וקאברים לקעקועים ישנים. כל קעקוע מתחיל בשיחה ובסקיצה אישית.</p>
+        <p class="lead">{home.heroLead}</p>
         <div class="btn-row">
           <a class="btn btn-gold" href={wa('היי דוד, הגעתי מהאתר ואשמח לקבוע ייעוץ')}>לקביעת ייעוץ בוואטסאפ</a>
           <a class="btn btn-ghost" href="/portfolio">לתיק העבודות</a>
@@ -86,8 +87,8 @@ const latest = posts.slice(0, 3);
 
   <section class="block studio-band">
     <div class="wrap">
-      <div class="section-head reveal"><h2>סטודיו פרטי, לא פס ייצור</h2></div>
-      <p class="statement reveal">אין בסטודיו המולה של סטודיו גדול. מגיעים, מתיישבים, ויש זמן לדבר על הקעקוע לפני שמתחילים. לקעקוע ראשון, או במקום רגיש בגוף, זה עושה הבדל.</p>
+      <div class="section-head reveal"><h2>{home.studioTitle}</h2></div>
+      <p class="statement reveal">{home.studioText}</p>
       <div class="btn-row">
         <a class="btn btn-ghost" href="/studio">על הסטודיו</a>
         <a class="btn btn-ghost" href="/visit">מגיעים מרחוק?</a>

@@ -1,24 +1,36 @@
-// תיק עבודות: תמונות מהאתר הקודם (שופיקס). הסדר כאן הוא סדר ההצגה.
-// alt מתאר מה רואים, בלי להמציא סגנון או פרטי לקוח.
-// לפני פרסום יש לוודא אישור הלקוחות (ראו CLAUDE.md).
-export const works = [
-  { file: 'work-13.webp', w: 818, h: 1090, alt: 'קעקוע על הזרוע: כלב שחצי מפניו ריאליסטי וחציו גיאומטרי' },
-  { file: 'work-03.webp', w: 813, h: 1084, alt: 'קעקוע גולגולת עם הכיתוב Memento Mori ופס אדום, על הזרוע' },
-  { file: 'work-16.webp', w: 900, h: 900, alt: 'קעקוע אסטרונאוט עם צורות גיאומטריות על האמה' },
-  { file: 'work-17.webp', w: 900, h: 1031, alt: 'קעקוע נשר עם קווים גיאומטריים וכיתוב Strength על הגב' },
-  { file: 'work-14.webp', w: 899, h: 1200, alt: 'קעקוע קווי בשחור ואדום של פנים בשילוב צורות גיאומטריות על השוק' },
-  { file: 'work-15.webp', w: 664, h: 885, alt: 'קעקוע קו דק של פנים בתוך צורה גיאומטרית עם הכיתוב Recovery, על האמה' },
-  { file: 'work-09.webp', w: 900, h: 1200, alt: 'קעקוע על הכתף: נשר וכיתוב Day by Day' },
-  { file: 'work-08.webp', w: 900, h: 1200, alt: 'קעקוע מנדלה על הכתף' },
-  { file: 'work-04.webp', w: 900, h: 1200, alt: 'קעקוע קו דק של דמות נשית ואלמנטים גיאומטריים על האמה' },
-  { file: 'work-07.webp', w: 704, h: 939, alt: 'קעקוע קו דק של דמות נשית עם הכיתוב Unstoppable על האמה' },
-  { file: 'work-02.webp', w: 900, h: 1200, alt: 'קעקוע קו דק של שני כלבים על השוק' },
-  { file: 'work-11.webp', w: 900, h: 900, alt: 'קעקוע צבעוני בסגנון אנימה על האמה' },
-  { file: 'work-12.webp', w: 900, h: 1200, alt: 'קעקוע גולגולת עם קרניים על החזה' },
-  { file: 'work-01.webp', w: 900, h: 1200, alt: 'שני קעקועי קו דק מופשטים על שתי אמות' },
-  { file: 'work-05.webp', w: 900, h: 1200, alt: 'קעקוע קטן של דמות מצוירת על הירך' },
-  { file: 'work-10.webp', w: 900, h: 1200, alt: 'כיתוב עדין בקו דק על הגב התחתון' },
-];
+// תיק העבודות נטען מ-src/content/settings/portfolio.json (עריכה במערכת הניהול).
+// התמונות יושבות ב-src/assets/portfolio ומעובדות אוטומטית בבנייה (גודל, WebP).
+// סדר הרשימה הוא סדר ההצגה באתר.
+import { getImage } from 'astro:assets';
+import data from '../content/settings/portfolio.json';
+
+const files = import.meta.glob('../assets/portfolio/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
+  eager: true,
+  import: 'default',
+});
+const byName = Object.fromEntries(
+  Object.entries(files).map(([p, m]) => [p.split('/').pop().toLowerCase(), m]),
+);
+
+export const works = (
+  await Promise.all(
+    (data.works || []).map(async (w) => {
+      const file = String(w.image || '').split('/').pop();
+      const meta = byName[file.toLowerCase()];
+      if (!meta) return null; // תמונה שנמחקה או לא קיימת: מדלגים
+      const thumb = await getImage({ src: meta, width: 800, format: 'webp', quality: 80 });
+      const full = await getImage({ src: meta, width: 1400, format: 'webp', quality: 82 });
+      return {
+        file,
+        src: thumb.src,
+        full: full.src,
+        w: thumb.attributes.width,
+        h: thumb.attributes.height,
+        alt: (w.alt || 'עבודת קעקוע של דוד שדה').trim(),
+      };
+    }),
+  )
+).filter(Boolean);
 
 export const portrait = {
   file: 'david-at-work.webp',

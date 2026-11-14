@@ -1,0 +1,68 @@
+{
+  "works": [
+    {
+      "image": "/src/assets/portfolio/work-13.webp",
+      "alt": "קעקוע על הזרוע: כלב שחצי מפניו ריאליסטי וחציו גיאומטרי"
+    },
+    {
+      "image": "/src/assets/portfolio/work-03.webp",
+      "alt": "קעקוע גולגולת עם הכיתוב Memento Mori ופס אדום, על הזרוע"
+    },
+    {
+      "image": "/src/assets/portfolio/work-16.webp",
+      "alt": "קעקוע אסטרונאוט עם צורות גיאומטריות על האמה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-17.webp",
+      "alt": "קעקוע נשר עם קווים גיאומטריים וכיתוב Strength על הגב"
+    },
+    {
+      "image": "/src/assets/portfolio/work-14.webp",
+      "alt": "קעקוע קווי בשחור ואדום של פנים בשילוב צורות גיאומטריות על השוק"
+    },
+    {
+      "image": "/src/assets/portfolio/work-15.webp",
+      "alt": "קעקוע קו דק של פנים בתוך צורה גיאומטרית עם הכיתוב Recovery, על האמה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-09.webp",
+      "alt": "קעקוע על הכתף: נשר וכיתוב Day by Day"
+    },
+    {
+      "image": "/src/assets/portfolio/work-08.webp",
+      "alt": "קעקוע מנדלה על הכתף"
+    },
+    {
+      "image": "/src/assets/portfolio/work-04.webp",
+      "alt": "קעקוע קו דק של דמות נשית ואלמנטים גיאומטריים על האמה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-07.webp",
+      "alt": "קעקוע קו דק של דמות נשית עם הכיתוב Unstoppable על האמה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-02.webp",
+      "alt": "קעקוע קו דק של שני כלבים על השוק"
+    },
+    {
+      "image": "/src/assets/portfolio/work-11.webp",
+      "alt": "קעקוע צבעוני בסגנון אנימה על האמה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-12.webp",
+      "alt": "קעקוע גולגולת עם קרניים על החזה"
+    },
+    {
+      "image": "/src/assets/portfolio/work-01.webp",
+      "alt": "שני קעקועי קו דק מופשטים על שתי אמות"
+    },
+    {
+      "image": "/src/assets/portfolio/work-05.webp",
+      "alt": "קעקוע קטן של דמות מצוירת על הירך"
+    },
+    {
+      "image": "/src/assets/portfolio/work-10.webp",
+      "alt": "כיתוב עדין בקו דק על הגב התחתון"
+    }
+  ]
+}

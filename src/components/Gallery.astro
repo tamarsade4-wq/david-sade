@@ -6,7 +6,7 @@ const { items, eager = 0, rail = false } = Astro.props;
   {items.map((it, i) => (
     <li class="reveal">
       <button type="button" class="gallery-item" data-index={i} aria-label={`הגדלת תמונה: ${it.alt}`}>
-        <img src={`/images/work/${it.file}`} alt={it.alt} width={it.w} height={it.h}
+        <img src={it.src} data-full={it.full} alt={it.alt} width={it.w} height={it.h}
           loading={i < eager ? 'eager' : 'lazy'} decoding="async" />
       </button>
     </li>
@@ -33,7 +33,7 @@ const { items, eager = 0, rail = false } = Astro.props;
     const show = (i) => {
       cur = (i + items.length) % items.length;
       const src = items[cur].querySelector('img');
-      img.src = src.src; img.alt = src.alt; cap.textContent = src.alt;
+      img.src = src.dataset.full || src.src; img.alt = src.alt; cap.textContent = src.alt;
     };
     items.forEach((b, i) => b.addEventListener('click', () => { show(i); dlg.showModal(); }));
     dlg.querySelector('.lb-close').addEventListener('click', () => dlg.close());

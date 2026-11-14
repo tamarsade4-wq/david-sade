@@ -8,7 +8,7 @@ const site = Astro.site.href.replace(/\/$/, '');
 const collection = {
   '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'תיק עבודות קעקועים', url: site + '/portfolio', inLanguage: 'he',
   about: { '@id': site + '/#business' },
-  hasPart: works.slice(0, 8).map((w) => ({ '@type': 'ImageObject', contentUrl: `${site}/images/work/${w.file}`, description: w.alt })),
+  hasPart: works.slice(0, 8).map((w) => ({ '@type': 'ImageObject', contentUrl: `${site}${w.src}`, description: w.alt })),
 };
 ---
 <Base title="תיק עבודות קעקועים | דוד שדה"

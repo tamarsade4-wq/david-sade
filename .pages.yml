@@ -1,7 +1,18 @@
 media:
-  input: public/images
-  output: /images
-  rename: safe
+  - name: portfolio
+    label: תמונות תיק העבודות
+    input: src/assets/portfolio
+    output: /src/assets/portfolio
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+  - name: images
+    label: תמונות כלליות
+    input: public/images
+    output: /images
+    rename: safe
+
+settings:
+  hide_docs: true
 
 content:
   - name: tattoos
@@ -199,3 +210,71 @@ content:
       - { name: slogan, label: סלוגן, type: string }
       - { name: sketchAppUrl, label: קישור לאפליקציית הסקיצות, type: string }
       - { name: accessibilityContact, label: שם רכז/ת הנגישות, type: string }
+
+  - name: portfolio
+    label: תיק עבודות (גלריה)
+    type: file
+    path: src/content/settings/portfolio.json
+    format: json
+    fields:
+      - name: works
+        label: העבודות בגלריה. גוררים כדי לשנות סדר, העבודה הראשונה מופיעה ראשונה
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: תמונה (אפשר להעלות ישר מהטלפון, האתר מקטין אותה לבד)
+            type: image
+            required: true
+            options:
+              media: portfolio
+          - name: alt
+            label: תיאור התמונה למי שלא רואה אותה (מה רואים בקעקוע ואיפה בגוף)
+            type: string
+            required: true
+
+  - name: home
+    label: עמוד הבית – טקסטים
+    type: file
+    path: src/content/pages/home.json
+    format: json
+    fields:
+      - { name: heroLead, label: הפסקה מתחת לכותרת הראשית, type: text, required: true }
+      - { name: studioTitle, label: כותרת הבלוק "סטודיו פרטי", type: string }
+      - { name: studioText, label: הטקסט בבלוק "סטודיו פרטי", type: text }
+
+  - name: about
+    label: עמוד אודות – הטקסט
+    type: file
+    path: src/content/pages/about.json
+    format: json
+    fields:
+      - name: body
+        label: הטקסט של עמוד אודות (מתחת לטבלת העובדות)
+        type: rich-text
+        options:
+          format: html
+          media: false
+
+  - name: extra-pages
+    label: עמודי לימוד פרטני ומגיעים מרחוק
+    type: file
+    path: src/data/extra-pages.json
+    format: json
+    fields:
+      - name: __lessons
+        label: לימוד קעקועים פרטני
+        type: object
+        fields:
+          - { name: slug, label: כתובת העמוד (לא לשנות), type: string }
+          - { name: title, label: כותרת, type: string }
+          - { name: description, label: תיאור בגוגל – עד 160 תווים, type: text, options: { maxlength: 160 } }
+          - { name: body, label: תוכן העמוד, type: rich-text, options: { format: html, media: false } }
+      - name: __far
+        label: מגיעים מרחוק
+        type: object
+        fields:
+          - { name: slug, label: כתובת העמוד (לא לשנות), type: string }
+          - { name: title, label: כותרת, type: string }
+          - { name: description, label: תיאור בגוגל – עד 160 תווים, type: text, options: { maxlength: 160 } }
+          - { name: body, label: תוכן העמוד, type: rich-text, options: { format: html, media: false } }

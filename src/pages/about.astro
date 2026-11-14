@@ -2,6 +2,7 @@
 import Page from '../layouts/Page.astro';
 import { business } from '../data/site.js';
 import { portrait } from '../data/portfolio.js';
+import about from '../content/pages/about.json';
 const site = Astro.site.href.replace(/\/$/, '');
 const person = {
   '@context': 'https://schema.org', '@type': 'Person', '@id': site + '/about#david',
@@ -29,13 +30,5 @@ const person = {
       <div><dt>כתבו עלינו</dt><dd><a href="/press">באר שבע נט, 2021 ו-2023</a></dd></div>
     </dl>
   </section>
-  <p>שמי דוד שדה, והקעקוע הראשון שעשיתי שינה לי את החיים. היום אני מקעקע כבר כעשור ומתמחה ב<a href="/tattoos/realism">ריאליזם בשחור-אפור</a> וב<a href="/tattoos/cover-up">קאברים לקעקועים ישנים</a>.</p>
-  <h2>איך הגעתי לקעקוע</h2>
-  <p>לפני הקעקוע עבדתי 12 שנה במחלקת מחקר ופיתוח בטבע. סביב יום הולדת 40 הבנתי שאני רוצה לעשות את מה שאני אוהב, והתחלתי ללמוד לקעקע ממקעקע חבר. מאז אני ממשיך ללמוד, וגם היום אני לוקח שיעורי אמנות.</p>
-  <h2>איך אני עובד</h2>
-  <p>בשבילי קעקוע מתחיל בסיפור. לכן אני מקדיש זמן לשיחה, מקשיב, ו<a href="/tattoos/consultation">מעצב סקיצה אישית</a> לפני שמתחילים. מי שמגיע לסטודיו מקבל זמן, שקט וכוס אספרסו, ועבודה שאני מדייק בה עד הקו האחרון.</p>
-  <p>יש דברים שאני לא מקעקע: סמלים נאציים, ותכנים שפוגעים באנשים או בדת.</p>
-  <h2>הסטודיו</h2>
-  <p>הסטודיו פרטי ושקט, בלי קהל מסביב. אפשר לקרוא עליו עוד בעמוד <a href="/studio">סטודיו פרטי לקעקועים</a>, ולקרוא <a href="/press">מה כתבו עלינו בבאר שבע נט</a>.</p>
-  <p>מלבד קעקועים יש בסטודיו גם <a href="/piercing">פירסינג</a> עם תכשיטי טיטניום, ו<a href="/private-lessons">לימוד קעקועים פרטני</a> למי שרוצה ללמוד את המקצוע.</p>
+  <Fragment set:html={about.body} />
 </Page>

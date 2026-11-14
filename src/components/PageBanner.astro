@@ -13,8 +13,8 @@ const byTopic = {
   sleeve: 'work-17.webp',
 };
 const hash = [...seed].reduce((a, c) => a + c.charCodeAt(0), 0);
-const file = byTopic[seed] || works[hash % works.length].file;
-const src = kind === 'work' ? `/images/work/${file}` : `/images/${portrait.file}`;
+const pick = works.find((w) => w.file === byTopic[seed]) || works[hash % works.length];
+const src = kind === 'work' && pick ? pick.full : `/images/${portrait.file}`;
 const pos = kind === 'work' ? '50% 40%' : '60% 35%';
 ---
 <div class="page-banner" aria-hidden="true">
