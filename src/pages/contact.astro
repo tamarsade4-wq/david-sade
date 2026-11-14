@@ -1,6 +1,7 @@
 ---
 import Page from '../layouts/Page.astro';
 import { business, wa } from '../data/site.js';
+import SocialIcons from '../components/SocialIcons.astro';
 ---
 <Page title="צרו קשר" metaTitle="צרו קשר – סטודיו דוד שדה בעומר | דוד שדה"
   description="צרו קשר עם סטודיו דוד שדה בוואטסאפ, בטלפון או במייל. סטודיו פרטי לקעקועים ופירסינג בעומר, צמוד לבאר שבע."
@@ -17,5 +18,7 @@ import { business, wa } from '../data/site.js';
     <li>מיקום: {business.street ? `${business.street}, ` : ''}{business.city}, צמוד לבאר שבע</li>
     {business.hours && <li>שעות: {business.hours}</li>}
   </ul>
+  <h2>גם ברשתות</h2>
+  <SocialIcons variant="list" />
   <p>מגיעים מרחוק? <a href="/visit">ככה מתאמים הגעה</a>.</p>
 </Page>

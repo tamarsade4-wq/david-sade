@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/luxe.css';
+import SocialIcons from '../components/SocialIcons.astro';
 import { business, nav, wa } from '../data/site.js';
 
 const {
@@ -99,6 +100,7 @@ const schemas = [org, ...(crumbs.length ? [breadcrumbSchema] : []), ...schema];
           {nav.map((n) => (
             <li><a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a></li>
           ))}
+          <li class="nav-social"><SocialIcons waText={waText} /></li>
         </ul>
       </nav>
     </div>

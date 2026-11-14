@@ -1,0 +1,31 @@
+---
+// אייקוני קו דקים לוואטסאפ, אינסטגרם ופייסבוק.
+// variant="icons": אייקונים בלבד (כותרת עליונה). variant="list": אייקון ושם (עמוד צרו קשר).
+import { business, wa } from '../data/site.js';
+const { variant = 'icons', waText = 'היי דוד, הגעתי מהאתר ואשמח לפרטים' } = Astro.props;
+const items = [
+  { key: 'wa', label: 'וואטסאפ', href: wa(waText), ext: false },
+  { key: 'ig', label: 'אינסטגרם', href: business.instagram, ext: true },
+  { key: 'fb', label: 'פייסבוק', href: business.facebook, ext: true },
+].filter((i) => i.href);
+const A = { fill: 'none', stroke: 'currentColor', 'stroke-width': '1.6', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+---
+<ul class={variant === 'list' ? 'social-list' : 'social-icons'} role="list">
+  {items.map((i) => (
+    <li>
+      <a class="social-link" href={i.href} {...(i.ext ? { target: '_blank', rel: 'noopener' } : {})}
+        aria-label={variant === 'icons' ? `${i.label}${i.ext ? ' (נפתח בחלון חדש)' : ''}` : undefined}>
+        {i.key === 'wa' && (
+          <svg class="ico" viewBox="0 0 24 24" {...A} aria-hidden="true"><path d="M3 21l1.7-5A8.6 8.6 0 1 1 8 19.3L3 21z"/><path d="M9 9.3c.3 2 1.8 3.5 3.8 3.9l.9-.9a.6.6 0 0 1 .6-.1l1.5.6c.2.1.4.3.4.5v.7a1 1 0 0 1-1 1c-3 0-5.4-2.4-5.4-5.4a1 1 0 0 1 1-1h.7c.2 0 .4.2.5.4l.6 1.5a.6.6 0 0 1-.1.6l-.5.5"/></svg>
+        )}
+        {i.key === 'ig' && (
+          <svg class="ico" viewBox="0 0 24 24" {...A} aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>
+        )}
+        {i.key === 'fb' && (
+          <svg class="ico" viewBox="0 0 24 24" {...A} aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8.5A.5.5 0 0 1 14 8z"/></svg>
+        )}
+        {variant === 'list' && <span>{i.label}{i.ext && <span class="sr-only"> (נפתח בחלון חדש)</span>}</span>}
+      </a>
+    </li>
+  ))}
+</ul>
