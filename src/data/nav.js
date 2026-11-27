@@ -26,7 +26,7 @@ export const piercingGroups = [
 
 export const piercingShort = {
   helix: 'הליקס', tragus: 'טראגוס', conch: "קונץ'", daith: 'דיית', industrial: 'אינדסטריאל',
-  nose: 'אף', septum: 'ספטום', lip: 'שפה', eyebrow: 'גבה', nipple: 'פטמה',
+  nose: 'אף', septum: 'ספטום', lip: 'שפה', eyebrow: 'גבה', nipple: 'פטמה', navel: 'טבור',
   jewelry: 'תכשיטי פירסינג', 'titanium-jewelry': 'תכשיטי טיטניום', 'custom-jewelry': 'התאמה אישית',
 };
 
@@ -65,7 +65,7 @@ export function buildNav() {
     { label: 'לימוד פרטני', href: '/private-lessons', match: ['/private-lessons'] },
     { label: 'מאמרים', href: '/blog', match: ['/blog'] },
     {
-      label: 'הסטודיו', href: '/about', match: ['/about', '/studio', '/visit', '/press', '/tattoo-beer-sheva', '/contact'],
+      label: 'הסטודיו', href: '/about', match: ['/about', '/studio', '/visit', '/press', '/tattoo-beer-sheva', '/piercing-beer-sheva', '/contact'],
       groups: [{
         title: 'הסטודיו',
         links: [
@@ -73,6 +73,7 @@ export function buildNav() {
           { href: '/studio', label: 'סטודיו פרטי' },
           { href: '/visit', label: 'מגיעים מרחוק' },
           { href: '/tattoo-beer-sheva', label: 'מקעקע בבאר שבע' },
+          { href: '/piercing-beer-sheva', label: 'פירסינג בבאר שבע' },
           { href: '/press', label: 'כתבו עלינו' },
           { href: '/contact', label: 'צרו קשר' },
         ],
