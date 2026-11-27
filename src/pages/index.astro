@@ -96,6 +96,16 @@ const latest = posts.slice(0, 3);
     </div>
   </section>
 
+  {business.googleBusiness && (
+    <section class="block" aria-labelledby="reviews-h">
+      <div class="wrap">
+        <h2 id="reviews-h">ביקורות בגוגל</h2>
+        <p>מה לקוחות כתבו אחרי הקעקוע והפירסינג אצל דוד, בפרופיל העסקי בגוגל.</p>
+        <p><a class="btn btn-ghost" href={business.googleBusiness} rel="noopener" target="_blank">לביקורות בגוגל<span class="sr-only"> (נפתח בחלון חדש)</span></a></p>
+      </div>
+    </section>
+  )}
+
   <section class="block">
     <div class="wrap">
       <div class="section-head reveal">
