@@ -1,16 +1,12 @@
 ---
 import Page from '../../layouts/Page.astro';
 import { posts } from '../../data/services.js';
+import { faqSchema } from '../../data/faq.js';
 export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
 const { p } = Astro.props;
 const site = Astro.site.href.replace(/\/$/, '');
 const article = { '@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.description, inLanguage: 'he', mainEntityOfPage: `${site}/blog/${p.slug}`, image: `${site}/og.jpg`, author: { '@type': 'Person', name: 'דוד שדה' }, publisher: { '@id': site + '/#business' } };
-// סכמת FAQ נבנית אוטומטית מסעיף "שאלות נפוצות" במאמר: כל <h3> שאלה, וה-<p> שאחריו תשובה.
-const strip = (s) => s.replace(/<[^>]+>/g, '').replace(/&quot;/g, '"').replace(/&amp;/g, '&').trim();
-const faqPart = (p.body || '').split('<h2>שאלות נפוצות</h2>')[1] || '';
-const faqItems = [...faqPart.split(/<h2[\s>]/)[0].matchAll(/<h3>(.*?)<\/h3>\s*<p>(.*?)<\/p>/gs)]
-  .map(([, q, a]) => ({ '@type': 'Question', name: strip(q), acceptedAnswer: { '@type': 'Answer', text: strip(a) } }));
-const schema = faqItems.length ? [article, { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems }] : [article];
+const schema = [article, ...faqSchema(p.body)];
 ---
 <Page title={p.title} metaTitle={`${p.title} | דוד שדה`.length <= 60 ? `${p.title} | דוד שדה` : p.title}
   description={p.description} crumbs={[{ label: 'מאמרים', href: '/blog' }, { label: p.title, href: `/blog/${p.slug}` }]}

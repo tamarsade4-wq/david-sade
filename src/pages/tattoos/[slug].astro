@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
+import { faqSchema } from '../../data/faq.js';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import PageBanner from '../../components/PageBanner.astro';
 import Gallery from '../../components/Gallery.astro';
@@ -23,7 +24,7 @@ const service = {
 ---
 <Base title={s.metaTitle} description={s.description} waText={s.waText}
   crumbs={[{ label: 'קעקועים', href: '/tattoos' }, { label: s.title, href: `/tattoos/${s.slug}` }]}
-  schema={[service]}>
+  schema={[service, ...faqSchema(s.body)]}>
   <article class="wrap narrow">
     <PageBanner kind="work" seed={s.slug} />
     <header class="page-head has-banner">
