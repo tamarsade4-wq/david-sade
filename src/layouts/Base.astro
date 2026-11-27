@@ -25,11 +25,13 @@ const org = {
   '@type': 'TattooParlor',
   '@id': site + '/#business',
   name: business.name,
+  ...(business.googleBusinessName ? { alternateName: business.googleBusinessName } : {}),
   url: site + '/',
   telephone: business.phoneIntl,
   email: business.email,
   slogan: business.slogan,
-  areaServed: ['עומר', 'באר שבע', 'הנגב', 'ישראל'],
+  areaServed: ['באר שבע', 'עומר', 'הנגב', 'הדרום', 'ישראל'],
+  ...(business.googleBusiness ? { hasMap: business.googleBusiness } : {}),
   address: {
     '@type': 'PostalAddress',
     addressLocality: business.city,
@@ -45,7 +47,7 @@ const org = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '14:00' },
   ],
-  sameAs: [business.instagram, business.facebook].filter(Boolean),
+  sameAs: [business.instagram, business.facebook, business.googleBusiness].filter(Boolean),
 };
 
 const breadcrumbSchema = {

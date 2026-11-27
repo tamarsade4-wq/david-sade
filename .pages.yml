@@ -206,6 +206,8 @@ content:
       - { name: email, label: אימייל, type: string }
       - { name: instagram, label: קישור לאינסטגרם, type: string }
       - { name: facebook, label: קישור לפייסבוק, type: string }
+      - { name: googleBusiness, label: קישור לפרופיל העסק בגוגל, type: string }
+      - { name: googleBusinessName, label: שם העסק כפי שהוא מופיע בגוגל, type: string }
       - { name: hours, label: שעות פעילות, type: string }
       - { name: slogan, label: סלוגן, type: string }
       - { name: sketchAppUrl, label: קישור לאפליקציית הסקיצות, type: string }
