@@ -1,0 +1,36 @@
+---
+// ביקורות אמיתיות מהפרופיל בגוגל, מועתקות מילה במילה (בלי אימוג'י). נערכות ב-src/content/settings/reviews.json.
+// בכוונה בלי סכמת Review/AggregateRating: גוגל לא מציג כוכבים לביקורות שעסק מפרסם על עצמו.
+import data from '../content/settings/reviews.json';
+import { business } from '../data/site.js';
+const { title = 'מה אומרים לקוחות', limit = 6, id = 'reviews-h' } = Astro.props;
+const items = (data.reviews || []).filter((r) => r.text && r.name).slice(0, limit);
+---
+{items.length > 0 && (
+  <section class="reviews" aria-labelledby={id}>
+    <h2 id={id}>{title}</h2>
+    {data.rating && data.count && (
+      <p class="reviews-sum"><strong>{data.rating}</strong> מתוך 5 בגוגל, לפי {data.count} ביקורות{data.asOf ? ` (${data.asOf})` : ''}.</p>
+    )}
+    <ul class="reviews-list">
+      {items.map((r) => (
+        <li class="review">
+          <blockquote><p>{r.text}</p></blockquote>
+          <p class="review-name">{r.name}, ביקורת בגוגל</p>
+        </li>
+      ))}
+    </ul>
+    {business.googleBusiness && (
+      <p><a class="btn btn-ghost" href={business.googleBusiness} rel="noopener" target="_blank">לכל הביקורות בגוגל<span class="sr-only"> (נפתח בחלון חדש)</span></a></p>
+    )}
+  </section>
+)}
+<style>
+  .reviews-list { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .review { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
+  .review blockquote { margin: 0; }
+  .review blockquote p { margin: 0; color: var(--text); }
+  .review-name { margin: auto 0 0; color: var(--muted); font-size: .95rem; }
+  .reviews-sum { color: var(--muted); }
+  .reviews-sum strong { color: var(--gold); font-size: 1.15em; }
+</style>

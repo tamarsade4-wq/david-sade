@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
+import { faqSchema } from '../../data/faq.js';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import PageBanner from '../../components/PageBanner.astro';
 import Gallery from '../../components/Gallery.astro';
@@ -23,7 +24,7 @@ const service = {
 ---
 <Base title={s.metaTitle} description={s.description} waText={s.waText}
   crumbs={[{ label: 'פירסינג', href: '/piercing' }, { label: s.title, href: `/piercing/${s.slug}` }]}
-  schema={[service]}>
+  schema={[service, ...faqSchema(s.body)]}>
   <article class="wrap narrow">
     <PageBanner kind="studio" seed={s.slug} />
     <header class="page-head has-banner">
@@ -41,7 +42,7 @@ const service = {
     <Cta title="רוצים לקבוע פירסינג?" text="שלחו הודעה בוואטסאפ, וספרו איזה פירסינג אתם רוצים. אפשר לצרף תמונה של האזור." waText={s.waText} />
     <nav class="related" aria-label="עוד סוגי פירסינג">
       <h2>עוד סוגי פירסינג</h2>
-      <ul>{others.map((o) => <li><a href={`/piercing/${o.slug}`}>{o.title}</a></li>)}<li><a href="/piercing">כל סוגי הפירסינג</a></li></ul>
+      <ul>{others.map((o) => <li><a href={`/piercing/${o.slug}`}>{o.title}</a></li>)}<li><a href="/piercing-beer-sheva">פירסינג באר שבע</a></li><li><a href="/piercing">כל סוגי הפירסינג</a></li></ul>
     </nav>
   </article>
 </Base>

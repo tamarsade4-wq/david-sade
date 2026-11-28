@@ -235,6 +235,23 @@ content:
             type: string
             required: true
 
+  - name: reviews
+    label: ביקורות מגוגל (רק טקסט אמיתי, מילה במילה)
+    type: file
+    path: src/content/settings/reviews.json
+    format: json
+    fields:
+      - { name: rating, label: הדירוג בגוגל (למשל 5.0), type: string }
+      - { name: count, label: מספר הביקורות בגוגל, type: string }
+      - { name: asOf, label: נכון לחודש (למשל נובמבר 2026), type: string }
+      - name: reviews
+        label: הביקורות שמוצגות באתר. גוררים כדי לשנות סדר
+        type: object
+        list: true
+        fields:
+          - { name: name, label: שם (שם פרטי ואות ראשונה של שם המשפחה), type: string, required: true }
+          - { name: text, label: טקסט הביקורת כמו שהוא בגוגל, type: text, required: true }
+
   - name: home
     label: עמוד הבית – טקסטים
     type: file
